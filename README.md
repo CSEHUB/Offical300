@@ -10,7 +10,7 @@ https://hub.docker.com/r/shanenielsen123/csehub/
 
         getData.once('value', function (snapshot) {
 
-            snapshot.forEach(function (childSnapshot, index) {
+            snapshot.forEach(function (childSnapshot) {
                 var childData = childSnapshot.val();
                 console.log(childData.course);
             })
