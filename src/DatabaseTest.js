@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import firebaseui from 'firebaseui';
 
-
 // File to mess around with put/patch/delete/post with User data
 
 class DatabaseTest extends Component {
