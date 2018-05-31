@@ -58,8 +58,7 @@ export class Dashboard extends Component {
 
         ReactDOM.render(<Header />, document.getElementById('topNav'));
         ReactDOM.render(<SideMenu />, document.getElementById('menu-side'));
-        buttons();
-
+        
         console.log(this.props);
         console.log(props.location.pathname);
         //get url
@@ -137,5 +136,3 @@ export class Dashboard extends Component {
 }
 
 //export default Dashboard;
-
-

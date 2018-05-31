@@ -26,27 +26,6 @@ function addWidget(param) {
     {/* Render the course widgets */}
     ReactDOM.render(<Widget1 name={param}></Widget1>, document.getElementById('bottom'));
 }
-export function buttons() {
-    firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            var userId = firebase.auth().currentUser.uid;
-            var getData = firebase.database().ref('/users/' + userId + '/workspace');
-
-            getData.once('value', function (snapshot) {
-                snapshot.forEach(function (childSnapshot) {
-                    var childData = childSnapshot.key;
-                    courses.push(childData);
-                })
-                ReactDOM.render(<SideMenu />, document.getElementById('menu-side'));
-            }, function(error) {
-                // The callback failed.
-                console.error(error);
-            });
-        }
-
-    })
-}
-
 
 function openSettings() {
     {/* This removes any widgets that may be from a different class */}
@@ -77,6 +56,7 @@ export function logout(){
     });
 }
 
+
 export class SideMenu extends Component {
 
     constructor(props) {
@@ -94,39 +74,14 @@ export class SideMenu extends Component {
                 var userId = user.uid;
                 var getData = firebase.database().ref('/users/' + userId + '/workspace');
                 var temp = new Array();
-                getData.once('value', (snapshot) => {
-                    snapshot.forEach((childSnapshot) => {
-                        console.log(childSnapshot);
-                        var childData = childSnapshot.key;
-                        temp.push(childData);
-                    })
-                    this.setState({courses:temp});
-                    //ReactDOM.render(<SideMenu />, document.getElementById('menu-side'));
-                }, function(error) {
-                    // The callback failed.
-                    console.error(error);
+                getData.on('child_added', (snapshot, prevChildKey) => {
+                    console.log(snapshot.key);
+                    this.setState(prevState => ({
+                      courses : [...prevState.courses, snapshot.key]
+                    }));
                 });
             }
 
-        });
-    }
-
-    componentDidMount(){
-        this.listenAddCourse();
-    }
-
-
-    listenAddCourse(){
-        firebase.auth().onAuthStateChanged((user) => {
-            if(user) {
-                var userId = user.uid;
-                var getData = firebase.database().ref('/users/' + userId + '/workspace');
-                var old_courses = this.state.courses;
-                getData.on('child_added', function (snapshot, prevChildKey) {
-                    console.log(snapshot.val().name);
-                    console.log(prevChildKey);
-                });
-            }
         });
     }
 
