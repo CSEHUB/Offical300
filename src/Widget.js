@@ -20,7 +20,7 @@ var urls;
 var widgetAdd;
 var uid;
 
-var json = '{"user": [{}],webiste }';
+var json = '{"user": [{}],website }';
 
 function uploadWidget() {
 
@@ -42,14 +42,6 @@ class Widget extends Component {
     constructor(name) {
         super();
         courseName = name;
-
-        this.myRef = React.createRef();
-
-        /* this.state = {
-             urls: ['https://piazza.com/', 'http://www.gradesource.com/reports/7/29889/index.html', 'https://gradescope.com/embed/', 'https://autograder.ucsd.edu/', 'https://www.youtube.com/embed/dQw4w9WgXcQ'],
-             website: ['Piazza', 'GradeSource', 'GradeScope', 'AutoGrader', 'Other'],
-             widgetID: ['0', '1', '2', '3', '4']
-         } */
 
         this.state = {
             urls: new Array(),
@@ -189,16 +181,16 @@ class Widget extends Component {
         //Delete child at widget id
         ref.child(uid).remove();
 
-        //this.getWid();
-
         //Re render widgets on deletion  of widget.
-        //Update local widgets.
         window.location.reload(); //Will change later.
     }
 
     render(){
         return(
             <div className="container-fluid">
+                    <li className="addWidget" data-toggle="modal" data-target="#modal-addWidget">Add
+                        Widget
+                    </li>
                 <div className="row">
                     {/* Load/render widgets you see on screen intially */}
                     {/* Modals (see below this) and widgets are connected via id's */}

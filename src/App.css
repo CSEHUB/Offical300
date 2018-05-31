@@ -27,9 +27,15 @@
   display: inline-block;
   font-size: 16px;
 }
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+
+.addWidget{
+  color: white;
+  margin-top: 10px;
+  margin-right: 10px;
+  float:right;
+  border-radius: 50px;
+  background: #069de2;
+  padding: 10px;
 }
 
 .App-header {

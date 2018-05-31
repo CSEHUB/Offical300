@@ -11,7 +11,7 @@ export const Header = () => {
                 {/* Logo portion of Nav, to match sidebar */}
                 <div className="col-lg-2 order-lg-1 col-md-2 order-md-1 order-sm-1 order-1 col-5">
                     <div className="mr-auto form-inline topNavLogoSearchContainer">
-                        <a className="navbar-nav" href="/"><img id="Logo" src={logo}/></a>
+                        <a className="App-logo" href="/"><img id="Logo" src={logo}/></a>
                     </div>
                 </div>
                 {/* Nav - Everything to right of logo */}
