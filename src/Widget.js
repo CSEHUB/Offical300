@@ -1,4 +1,4 @@
-    import React, {Component} from 'react';
+import React, {Component} from 'react';
 import {makeWorkspace} from './Dashboard';
 import firebase from 'firebase';
 import 'firebase/database';
@@ -19,6 +19,8 @@ var website;
 var urls;
 var widgetAdd;
 var uid;
+
+var json = '{"user": [{}],webiste }';
 
 function uploadWidget() {
 
