@@ -39,6 +39,7 @@ function uploadWidget() {
 }
 
 class Widget extends Component {
+
     constructor(name) {
         super();
         courseName = name;
@@ -119,12 +120,11 @@ class Widget extends Component {
         })
     }
 
-    makeWidget() {
+    websiteWidget() {
+        //What type of course website are we adding?
         var courseType;
-        var webURL = document.getElementById("webURL").value;
 
-        //Currently adding widget. For getWid method.
-        widgetAdd = true;
+        var webURL = document.getElementById("webURL").value;
 
         //Make sure url is lowercase for comparisons
         webURL = webURL.toLowerCase();
@@ -168,6 +168,19 @@ class Widget extends Component {
 
         //Lets prep firebase for update and then update.
         this.getWid();
+    }
+
+    makeWidget() {
+        var widgetType = document.getElementById("widgetType").value;
+
+        //Currently adding widget. For getWid method.
+        widgetAdd = true;
+
+        if(widgetType === "Website") {
+            //Add a website widget type.
+            this.websiteWidget();
+        }
+
 
     }
 
@@ -184,6 +197,34 @@ class Widget extends Component {
         //Re render widgets on deletion  of widget.
         window.location.reload(); //Will change later.
     }
+
+
+    static dragDownForm(event){
+        //alert(event.target.value);
+        var x = document.getElementById("innerForm");
+
+        //Clear existing html
+        x.innerHTML = "";
+
+        if(event.target.value === "Website") {
+            x.innerHTML = "<div className=\"form-group\">\n" +
+                "            <label htmlFor=\"exampleFormControlInput1\">URL: </label>\n" +
+                "            <input id=\"webURL\" type=\"text\" className=\"form-control\"\n" +
+                "                   placeholder=\"\"/>\n" +
+                "        </div>"
+        }
+        else if(event.target.value === "GradeSource"){
+            x.innerHTML = "<div className=\"form-group\">\n" +
+                "            <label htmlFor=\"exampleFormControlInput1\">GradeSource URL: </label>\n" +
+                "            <input id=\"GSURL\" type=\"text\" className=\"form-control\"\n" +
+                "                   placeholder=\"http://www.gradesource.com/reports/7/29889/index.html\"/>\n" +
+                "            <label htmlFor=\"exampleFormControlInput1\">Secret Number: </label>\n" +
+                "            <input id=\"secretNum\" type=\"text\" className=\"form-control\"\n" +
+                "                   placeholder=\"43207\"/>\n" +
+                "        </div>"
+        }
+    }
+
 
     render(){
         return(
@@ -351,13 +392,18 @@ class Widget extends Component {
                             <div className="modal-body">
 
                                 <form>
+                                    <div className="form-group">
+                                        <label htmlFor="exampleFormControlSelect1">Choose Widget: </label>
+                                        <select className="form-control" id="widgetType" onChange={Widget.dragDownForm} value={this.state.value}>
+                                            <option value="GradeSource">GradeSource Visualizer</option>
+                                            <option value="Planner">Course Planner</option>
+                                            <option value="Website">Website (Piazza, GradeScope, Autograder, etc)</option>
+                                            <option value="Game">PICO-8 Game</option>
+                                        </select>
+                                    </div>
 
                                     <form>
-                                        <div className="form-group">
-                                            <label htmlFor="exampleFormControlInput1">URL: </label>
-                                            <input id="webURL" type="text" className="form-control"
-                                                   placeholder=""/>
-                                        </div>
+                                        <div id="innerForm"></div>
                                     </form>
 
                                 </form>
