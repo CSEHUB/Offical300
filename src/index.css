@@ -214,7 +214,7 @@ a:hover {
 
 .w-container-out:hover .w-top-l{
     font-size: 23px;
-    color:#8e0707;
+    color:black;
     cursor: pointer;
     display: block !important;
     -webkit-animation: fadein .3s;
@@ -690,10 +690,12 @@ h5 {
     }
 
     .w-top{
+        margin-top: 0;
         display: block;
     }
 
     .w-top-l{
+        margin-top: 0;
         display: block;
     }
 
