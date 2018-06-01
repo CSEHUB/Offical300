@@ -245,19 +245,19 @@ class Widget extends Component {
 
 
         if(event.target.value === "Website") {
-            x.innerHTML = "<div className=\"form-group\">\n" +
+            x.innerHTML = "<div class=\"form-group\">\n" +
                 "            <label htmlFor=\"exampleFormControlInput1\">URL: </label>\n" +
-                "            <input id=\"webURL\" type=\"text\" className=\"form-control\"\n" +
+                "            <input id=\"webURL\" type=\"text\" class=\"form-control\"\n" +
                 "                   placeholder=\"\"/>\n" +
                 "        </div>"
         }
         else if(event.target.value === "GradeSource"){
-            x.innerHTML = "<div className=\"form-group\">\n" +
+            x.innerHTML = "<div class=\"form-group\">\n" +
                 "            <label htmlFor=\"exampleFormControlInput1\">GradeSource URL: </label>\n" +
-                "            <input id=\"GSURL\" type=\"text\" className=\"form-control\"\n" +
+                "            <input id=\"GSURL\" type=\"text\" class=\"form-control\"\n" +
                 "                   placeholder=\"http://www.gradesource.com/reports/7/29889/index.html\"/>\n" +
                 "            <label htmlFor=\"exampleFormControlInput1\">Secret Number: </label>\n" +
-                "            <input id=\"secretNum\" type=\"text\" className=\"form-control\"\n" +
+                "            <input id=\"secretNum\" type=\"text\" class=\"form-control\"\n" +
                 "                   placeholder=\"43207\"/>\n" +
                 "        </div>"
         }
@@ -267,9 +267,15 @@ class Widget extends Component {
     render(){
         return(
             <div className="container-fluid">
-                    <li className="addWidget" data-toggle="modal" data-target="#modal-addWidget">Add
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="floatRight">
+                    <button className="addWidget" data-toggle="modal" data-target="#modal-addWidget">Add
                         Widget
-                    </li>
+                    </button>
+                        </div>
+                    </div>
+                </div>
                 <div className="row">
                     {/* Load/render widgets you see on screen intially */}
                     {/* Modals (see below this) and widgets are connected via id's */}

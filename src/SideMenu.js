@@ -103,7 +103,7 @@ export class SideMenu extends Component {
 
                             {this.state.courses.map((courseTitle, arrayIndex) => {
                                 return (
-                                    <li onClick={addWidget.bind(this, courseTitle)}><NavLink to={"/dashboard/course/" + courseTitle} className="menu-item mih" activeClassName="activeMenuItem" >{courseTitle}</NavLink></li>
+                                    <li onClick={addWidget.bind(this, courseTitle)}><NavLink exact to={"/dashboard/course/" + courseTitle} className="menu-item mih" activeClassName="activeMenuItem" >{courseTitle}</NavLink></li>
                                 )
                             })}
 
@@ -113,9 +113,9 @@ export class SideMenu extends Component {
                             <div className="border"></div>
                             <br></br>
 
-                            <li onClick={openSettings}><NavLink to="/dashboard/settings" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-cog"></i></div><span className="pad-left-settings">Settings</span></NavLink></li>
-                            <li onClick={openHelp}><NavLink to="/dashboard/help" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-question"></i></div> <span className="pad-left-help">Help</span></NavLink></li>
-                            <li onClick={logout}><NavLink to="/" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-sign-out-alt"></i></div>Sign out</NavLink></li>
+                            <li onClick={openSettings}><NavLink exact to="/dashboard/settings" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-cog"></i></div><span className="pad-left-settings">Settings</span></NavLink></li>
+                            <li onClick={openHelp}><NavLink exact to="/dashboard/help" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-question"></i></div> <span className="pad-left-help">Help</span></NavLink></li>
+                            <li onClick={logout}><NavLink exact to="/" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-sign-out-alt"></i></div>Sign out</NavLink></li>
 
                         </ul>
                     </nav>
