@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {makeWorkspace} from './Dashboard';
 import firebase from 'firebase';
 import 'firebase/database';
+import './index.css';
 
 import logo from './res/images/Logo.png'
 import gradesourceLogo from './res/images/GradeSource_logo.png'
@@ -57,6 +58,21 @@ class Widget extends Component {
         // for adding or getting widget. In this case it will get widgets.
         widgetAdd = false;
         this.getWid();
+    }
+
+    //Function to remove a widget from firebase, and website.
+    async rmWidget(param) {
+        var uid = this.state.uid[param]; //Get the widget id
+
+        //Got to path of widget. Under workspace id
+        var path = `workspaces/` + wid + '/widgets';
+        const ref = await firebase.database().ref(path);
+
+        //Delete child at widget id
+        ref.child(uid).remove();
+
+        //Re render widgets on deletion  of widget.
+        window.location.reload(); //Will change later.
     }
 
     //Get workspace ID and call upload widget or download widgets
@@ -170,41 +186,63 @@ class Widget extends Component {
         this.getWid();
     }
 
+    GradeSource() {
+        var webURL = document.getElementById("GSURL").value;
+        var secretNum = document.getElementById("secretNum").value;
+
+        //Make sure url is lowercase for comparisons
+        webURL = webURL.toLowerCase();
+
+        //Check if "http://" is at begin if not add it
+        if (webURL.indexOf('http') != 0) {
+            webURL = 'http://' + webURL;
+        }
+
+        //Make URL http://www.sourcegrade.xyz/grades?id=4562&url=http://www.gradesource.com/reports/7/29889/index.html
+        var sourceGrade = "http://www.sourcegrade.xyz/grades?id=" + secretNum + "&url=" + webURL;
+
+        //Update local widgets.
+        this.setState({ website: this.state.website.concat("GradeSource") });
+        this.setState({ urls: this.state.urls.concat(webURL) });
+        this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
+
+        //Update variables to be pushed.
+        website = "GradeSource";
+        urls = webURL;
+
+        //Increment widget count for unique ID for modal popup identifier.
+        widgetNum++;
+
+        //Lets prep firebase for update and then update.
+        this.getWid();
+    }
+
+    //Prep the widget for creation, and then create it.
     makeWidget() {
         var widgetType = document.getElementById("widgetType").value;
 
-        //Currently adding widget. For getWid method.
+        //Currently adding widget. Used in getwid()
         widgetAdd = true;
 
+        //Is this a standard website widget?
         if(widgetType === "Website") {
             //Add a website widget type.
             this.websiteWidget();
         }
 
-
+        else if(widgetType === "GradeSource") {
+            this.GradeSource();
+        }
     }
 
-    async rmWidget(param) {
-        var uid = this.state.uid[param]; //Get the widget id
-
-        //Got to path of widget. Under workspace id
-        var path = `workspaces/` + wid + '/widgets';
-        const ref = await firebase.database().ref(path);
-
-        //Delete child at widget id
-        ref.child(uid).remove();
-
-        //Re render widgets on deletion  of widget.
-        window.location.reload(); //Will change later.
-    }
-
-
+    //Function to dynamoically change required fields depending on the widget type.
     static dragDownForm(event){
         //alert(event.target.value);
         var x = document.getElementById("innerForm");
 
         //Clear existing html
         x.innerHTML = "";
+
 
         if(event.target.value === "Website") {
             x.innerHTML = "<div className=\"form-group\">\n" +
@@ -403,7 +441,14 @@ class Widget extends Component {
                                     </div>
 
                                     <form>
-                                        <div id="innerForm"></div>
+                                        <div id="innerForm">
+                                            <div className="form-group">
+                                            <label htmlFor="exampleFormControlInput1\">GradeSource URL: </label>
+                                            <input id="GSURL" type="text" className="form-control" placeholder="http://www.gradesource.com/reports/7/29889/index.html"/>
+                                            <label htmlFor="exampleFormControlInput1">Secret Number: </label>
+                                            <input id="secretNum" type="text" className="form-control" placeholder="4320"/>
+                                            </div>
+                                        </div>
                                     </form>
 
                                 </form>
