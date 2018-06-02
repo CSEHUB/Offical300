@@ -9,6 +9,7 @@ import gradesourceLogo from './res/images/GradeSource_logo.png'
 import piazzaLogo from './res/images/Piazza_logo.png'
 import autograderLogo from './res/images/Autograder_Logo.png'
 import gradescopeLogo from './res/images/Gradescope_logo.png'
+import podcastLogo from './res/images/podcast.png'
 import celesteLogo from './res/images/celeste.png'
 import picoLogo from './res/images/picoracer.png'
 import flappyBeeLogo from './res/images/flappyBee.png'
@@ -164,6 +165,9 @@ class Widget extends Component {
         }
         else if (webURL.indexOf('piazza') !== -1) {
             courseType = "Piazza";
+        }
+        else if (webURL.indexOf('podcast') !== -1) {
+            courseType = "Podcast";
         }
         else {
             courseType = "Other";
@@ -372,6 +376,20 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo" src={autograderLogo}/>
+                                        </div>
+                                    </div>
+
+                                </ElseIf>
+
+                                {/* If podcast, just show logo */}
+                                <ElseIf condition={this.state.website[arrayIndex] == 'Podcast'}>
+                                    <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 w-container-out">
+                                        <div className="w-top">
+                                            <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                        </div>
+                                        <div id="e" draggable="true" className="w-container" data-toggle="modal"
+                                             data-target={'#' + this.state.widgetID[arrayIndex]}>
+                                            <img className="widgetLogoCeleste" src={podcastLogo}/>
                                         </div>
                                     </div>
 
