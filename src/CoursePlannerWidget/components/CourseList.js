@@ -74,7 +74,7 @@ export default class CourseList extends React.Component {
 
             // Adjust the total number of hours per week
             //this.props.timeChangeCallback(this.getNumHours(this._inputElement.value));
-            this.addNumHours(this._inputElement.value, this.props.qt);
+            this.addNumHours(this._inputElement.value.toUpperCase(), this.props.qt);
 
             this.setState((prevState) => {
                 return {
@@ -93,7 +93,7 @@ export default class CourseList extends React.Component {
     deleteItem(key) {
         var filteredItems = this.state.items.filter((function (item) {
             if (item.key === key) {
-                this.subNumHours(item.text, this.props.qt);
+                this.subNumHours(item.text.toUpperCase(), this.props.qt);
             }
 
             return (item.key !== key);
