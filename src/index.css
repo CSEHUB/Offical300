@@ -87,10 +87,6 @@ a:hover {
 }
 
 
-
-
-
-
 /* --------- Top Nav Styles --------- */
 .topNavContainer{
     position: fixed;
@@ -281,14 +277,23 @@ a:hover {
 
 
 .modal-dialog.widget-modal{
+      max-width:80% !important;
+      height: 80% !important;
+  }
+
+.modal-dialog.widget-modalCeleste{
+    /*max-width:80% !important;
+    height: 80% !important;*/
+}
+.modal-dialog.widget-modalBee{
     max-width:80% !important;
     height: 80% !important;
 }
 
 .modal-full{
-    width:100% !important;
-    height: 100% !important;
-}
+     width:100% !important;
+     height: 100% !important;
+ }
 
 .widget-modal-h{
     height: 100% !important;
@@ -301,11 +306,30 @@ a:hover {
 }
 
 .widgetLogo{
-    width:65%;
+     width:65%;
+     margin-left: auto;
+     margin-right: auto;
+     display: block;
+     padding-top: 93px;
+ }
+
+.widgetLogoPico{
+    width:100%;
     margin-left: auto;
     margin-right: auto;
     display: block;
-    padding-top: 93px;
+    padding-top: 0px;
+}
+
+.widgetLogoCeleste{
+    width:100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    padding-top:0px;
+}
+
+.beeScale {
 }
 
 
@@ -376,8 +400,11 @@ li{
 }
 
 .addWorkspace{
+    font-weight: bold;
+    font-size:22px;
+    padding-left:10px;
     cursor:pointer;
-    color: #039ee2;
+    color: #535353;
 }
 
 .pad-left-help{
@@ -780,8 +807,8 @@ h5 {
     }
 
     .widgetLogo{
-        padding-top: 72px;
-    }
+         padding-top: 72px;
+     }
 
     .w-top {
         height: 31px;
@@ -808,8 +835,9 @@ h5 {
     }
 
     .widgetLogo{
-        padding-top: 63px;
-    }
+         padding-top: 63px;
+     }
+
 }
 
 

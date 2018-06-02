@@ -106,8 +106,7 @@ export class SideMenu extends Component {
                                 <div className="logo">
                                     <img id="Logo" src={logo}/>
                                 </div>
-                            <li className="menu-main-item"><div className="menu-icons"><i className="fas fa-th-large"></i></div>Workspaces<div className="addWorkspace ml-auto" data-toggle="modal" data-target="#modal-addWebsite"><i className="fas fa-plus"></i></div></li>
-
+                            <li className="menu-main-item"><div className="menu-icons"><i className="fas fa-th-large"></i></div>Workspaces <div className="addWorkspace ml-auto" data-toggle="modal" data-target="#modal-addWebsite">+</div></li>
                             {/* Button trigger modal */}
 
                             {/* We need to loop data and populate this format with course name in them */}
@@ -122,8 +121,8 @@ export class SideMenu extends Component {
                             <br></br>
                             <br></br>
                             <div className="border"></div>
-                            <br></br>
-                            <li onClick={openFourYearPlanner}><NavLink exact to="/dashboard/planner" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-cog"></i></div><span className="pad-left-settings">College Planner</span></NavLink></li>
+                            {/*<li onClick={openFourYearPlanner}><NavLink exact to="/dashboard/planner" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"></div><span className="pad-left-settings">College Planner</span></NavLink></li>
+                            <div className="border"></div> */}
 
                             <li onClick={openSettings}><NavLink exact to="/dashboard/settings" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-cog"></i></div><span className="pad-left-settings">Settings</span></NavLink></li>
                             <li onClick={openHelp}><NavLink exact to="/dashboard/help" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-question"></i></div> <span className="pad-left-help">Help</span></NavLink></li>

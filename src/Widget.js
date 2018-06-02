@@ -9,6 +9,10 @@ import gradesourceLogo from './res/images/GradeSource_logo.png'
 import piazzaLogo from './res/images/Piazza_logo.png'
 import autograderLogo from './res/images/Autograder_Logo.png'
 import gradescopeLogo from './res/images/Gradescope_logo.png'
+import celesteLogo from './res/images/celeste.png'
+import picoLogo from './res/images/picoracer.png'
+import flappyBeeLogo from './res/images/flappyBee.png'
+
 
 import { If, Then, ElseIf, Else } from 'react-if-elseif-else-render';
 import ReactDOM from "react-dom";
@@ -288,7 +292,7 @@ class Widget extends Component {
                 "         <select class=\"form-control\" id=\"Game\" value={this.state.value}>\n" +
                 "         <option value=\"Celeste\">Celeste</option>\n" +
                 "         <option value=\"Pico-Racer\">Pico-Racer</option>\n" +
-                "         <option value=\"Rise\">Stories At The Dawn</option>\n" +
+                "         <option value=\"Bee\">Flappy Flock: Collect The Birds</option>\n" +
                 "         </select>\n" +
                 "          </div>"
         }
@@ -398,7 +402,7 @@ class Widget extends Component {
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
-                                            <body>Celeste</body>
+                                            <img className="widgetLogoCeleste" src={celesteLogo}/>
                                         </div>
                                     </div>
 
@@ -412,21 +416,21 @@ class Widget extends Component {
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
-                                            <body>Pico-Racer</body>
+                                            <img className="widgetLogoPico" src={picoLogo}/>
                                         </div>
                                     </div>
 
                                 </ElseIf>
 
-                                {/* If Rise */}
-                                <ElseIf condition={this.state.website[arrayIndex] == 'Rise'}>
+                                {/* If flappyBee */}
+                                <ElseIf condition={this.state.website[arrayIndex] == 'Bee'}>
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12  w-container-out">
                                         <div className="w-top">
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
-                                            <body>Stories At The Dawn</body>
+                                            <img className="widgetLogoPico" src={flappyBeeLogo}/>
                                         </div>
                                     </div>
 
@@ -445,38 +449,62 @@ class Widget extends Component {
                     return (
                         <div key={Index} className="modal fade" id={this.state.widgetID[Index]} tabIndex="-1" role="dialog"
                              aria-labelledby={this.state.widgetID[Index]}  aria-hidden="true">
-                            <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
-                                <div className="modal-content widget-modal-h">
-                                    <div className="modal-body widget-modal-h">
+
 
 
                                         <If condition={this.state.website[Index] == 'GradeScope'}>
                                             <Then>
-                                                <p>SEE HOW GRADESCOPE BLOCKS THE IFRAME FROM POPPING UP???? </p>
-                                                <a target="_blank" href="https://stackoverflow.com/a/35790513">Click this text to learn more....</a>
+                                                <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
+                                                    <div className="modal-content widget-modal-h">
+                                                        <div className="modal-body widget-modal-h">
+                                                            <p>SEE HOW GRADESCOPE BLOCKS THE IFRAME FROM POPPING UP???? </p>
+                                                            <a target="_blank" href="https://stackoverflow.com/a/35790513">Click this text to learn more....</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </Then>
 
                                             <ElseIf condition={this.state.website[Index] == 'Celeste'}>
+                                                <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
+                                                    <div className="modal-content widget-modal-h">
+                                                        <div className="modal-body widget-modal-h">
                                                 <iframe scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/235259/Celeste/index.html" style={{border: '0px none', marginLeft: '0px', height: 565, marginTop: 0, width: 570}}/>
-                                            </ElseIf>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                             </ElseIf>
 
                                             <ElseIf condition={this.state.website[Index] == 'Pico-Racer'}>
-                                                <iframe scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/394002/picoracer/index.html" style={{border: '0px none', marginLeft: -5, height: 600, marginTop: -60, width: 530}}/>
+                                                <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
+                                                    <div className="modal-content widget-modal-h">
+                                                        <div className="modal-body widget-modal-h">
+                                                <iframe scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/394002/picoracer/index.html" style={{border: '0px none', marginLeft: 0, height: 650, marginTop: 0, width: 575}}/>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </ElseIf>
 
-                                            <ElseIf condition={this.state.website[Index] == 'Rise'}>
-                                                <iframe scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/59504/index.html" style={{border: '0px none', marginLeft: -25, height: 600, marginTop: -20, width: 600}}/>
+                                            <ElseIf condition={this.state.website[Index] == 'Bee'}>
+                                                <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
+                                                    <div className="modal-content widget-modal-h">
+                                                        <div className="modal-body widget-modal-h">
+                                                            <iframe scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/524861/index.html" allowFullScreen style={{border: '0px none', marginLeft: 0, height: 650, marginTop: 0, width: 575}}/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                             </ElseIf>
 
                                             <Else>
+                                                <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
+                                                    <div className="modal-content widget-modal-h">
+                                                        <div className="modal-body widget-modal-h">
                                                 <iframe className="modal-full" src={this.state.urls[Index]}
                                                         frameBorder="0" allow="autoplay; encrypted-media"></iframe>
-
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </Else>
                                         </If>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     )
                 })}
