@@ -270,9 +270,9 @@ class Widget extends Component {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="floatRight">
-                    <button className="addWidget" data-toggle="modal" data-target="#modal-addWidget">Add
+                    <li className="addWidget" data-toggle="modal" data-target="#modal-addWidget">Add
                         Widget
-                    </button>
+                    </li>
                         </div>
                     </div>
                 </div>
@@ -440,7 +440,6 @@ class Widget extends Component {
                                         <label htmlFor="exampleFormControlSelect1">Choose Widget: </label>
                                         <select className="form-control" id="widgetType" onChange={Widget.dragDownForm} value={this.state.value}>
                                             <option value="GradeSource">GradeSource Visualizer</option>
-                                            <option value="Planner">Course Planner</option>
                                             <option value="Website">Website (Piazza, GradeScope, Autograder, etc)</option>
                                             <option value="Game">PICO-8 Game</option>
                                         </select>

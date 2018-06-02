@@ -16,6 +16,7 @@ import {
     Route,
     Link
 } from 'react-router-dom'
+import FourYearPlan from "./CoursePlannerWidget/components/FourYearPlan";
 
 
 
@@ -68,6 +69,8 @@ export class Dashboard extends Component {
         //get first part (which is the page type "ex: dashboard, settings, course, login etc..."
         var pageType = pathParts[2];
         console.log("Page Type: " + pageType);
+
+        //ReactDOM.render(<FourYearPlan />, document.getElementById('bottom'));
 
         //if page is equal to a course page, we know that we need to load widgets in the bottom right section
         if(pageType == "course") {

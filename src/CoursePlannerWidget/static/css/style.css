@@ -1,0 +1,36 @@
+.courseListMain .header input {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #FFF;
+    width: 165px;
+}
+.courseListMain .header button {
+    padding: 10px;
+    font-size: 16px;
+    margin: 0px;
+    margin-right: 0px;
+    background-color: #0066FF;
+    color: #FFF;
+    border: 2px solid #0066FF;
+}
+.courseListMain .header button:hover {
+    background-color: #003399;
+    border: 2px solid #003399;
+    cursor: pointer;
+}
+.courseListMain .theList {
+    list-style: none;
+    padding-left: 0;
+    width: 250px;
+}
+.courseListMain .theList li {
+    color: #333;
+    background-color: rgba(255,255,255,.5);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    list-style: none;
+}
+ul.theList {
+    padding: 0;
+}
