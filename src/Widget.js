@@ -20,6 +20,7 @@ var website;
 var urls;
 var widgetAdd;
 var uid;
+var dropDown;
 
 var json = '{"user": [{}],website }';
 
@@ -217,6 +218,23 @@ class Widget extends Component {
         this.getWid();
     }
 
+    Game() {
+        //Update local widgets.
+        this.setState({ website: this.state.website.concat(dropDown) });
+        this.setState({ urls: this.state.urls.concat(dropDown) });
+        this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
+
+        //Update variables to be pushed.
+        website = dropDown;
+        urls = dropDown;
+
+        //Increment widget count for unique ID for modal popup identifier.
+        widgetNum++;
+
+        //Lets prep firebase for update and then update.
+        this.getWid();
+    }
+
     //Prep the widget for creation, and then create it.
     makeWidget() {
         var widgetType = document.getElementById("widgetType").value;
@@ -233,11 +251,15 @@ class Widget extends Component {
         else if(widgetType === "GradeSource") {
             this.GradeSource();
         }
+        else if(widgetType === "Game") {
+            dropDown = document.getElementById("Game").value;
+            this.Game();
+        }
     }
 
     //Function to dynamoically change required fields depending on the widget type.
     static dragDownForm(event){
-        //alert(event.target.value);
+        dropDown = event.target.value;
         var x = document.getElementById("innerForm");
 
         //Clear existing html
@@ -261,10 +283,21 @@ class Widget extends Component {
                 "                   placeholder=\"43207\"/>\n" +
                 "        </div>"
         }
+        else if(event.target.value === "Game"){
+            x.innerHTML = "<div class=\"form-group\">\n" +
+                "         <label htmlFor=\"exampleFormControlSelect1\">Choose Game: </label>\n" +
+                "         <select class=\"form-control\" id=\"Game\" value={this.state.value}>\n" +
+                "         <option value=\"Celeste\">Celeste</option>\n" +
+                "         <option value=\"Pico-Racer\">Pico-Racer</option>\n" +
+                "         <option value=\"Rise\">Stories At The Dawn</option>\n" +
+                "         </select>\n" +
+                "          </div>"
+        }
     }
 
 
     render(){
+
         return(
             <div className="container-fluid">
                 <div className="row">
@@ -356,7 +389,52 @@ class Widget extends Component {
                                     </div>
 
                                 </ElseIf>
+
+
+                                {/* If Celeste */}
+                                <ElseIf condition={this.state.website[arrayIndex] == 'Celeste'}>
+                                    <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12  w-container-out">
+                                        <div className="w-top">
+                                            <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                        </div>
+                                        <div id="e" draggable="true" className="w-container" data-toggle="modal"
+                                             data-target={'#' + this.state.widgetID[arrayIndex]}>
+                                            <body>Celeste</body>
+                                        </div>
+                                    </div>
+
+                                </ElseIf>
+
+                                {/* If Pico-Racer */}
+                                <ElseIf condition={this.state.website[arrayIndex] == 'Pico-Racer'}>
+                                    <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12  w-container-out">
+                                        <div className="w-top">
+                                            <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                        </div>
+                                        <div id="e" draggable="true" className="w-container" data-toggle="modal"
+                                             data-target={'#' + this.state.widgetID[arrayIndex]}>
+                                            <body>Pico-Racer</body>
+                                        </div>
+                                    </div>
+
+                                </ElseIf>
+
+                                {/* If Rise */}
+                                <ElseIf condition={this.state.website[arrayIndex] == 'Rise'}>
+                                    <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12  w-container-out">
+                                        <div className="w-top">
+                                            <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                        </div>
+                                        <div id="e" draggable="true" className="w-container" data-toggle="modal"
+                                             data-target={'#' + this.state.widgetID[arrayIndex]}>
+                                            <body>Stories At The Dawn</body>
+                                        </div>
+                                    </div>
+
+                                </ElseIf>
                             </If>
+
+
                         )
                     })}
                 </div>
@@ -378,12 +456,25 @@ class Widget extends Component {
                                                 <p>SEE HOW GRADESCOPE BLOCKS THE IFRAME FROM POPPING UP???? </p>
                                                 <a target="_blank" href="https://stackoverflow.com/a/35790513">Click this text to learn more....</a>
                                             </Then>
+
+                                            <ElseIf condition={this.state.website[Index] == 'Celeste'}>
+                                                <iframe scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/235259/Celeste/index.html" style={{border: '0px none', marginLeft: '0px', height: 565, marginTop: 0, width: 570}}/>
+                                            </ElseIf>
+
+                                            <ElseIf condition={this.state.website[Index] == 'Pico-Racer'}>
+                                                <iframe scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/394002/picoracer/index.html" style={{border: '0px none', marginLeft: -5, height: 600, marginTop: -60, width: 530}}/>
+                                            </ElseIf>
+
+                                            <ElseIf condition={this.state.website[Index] == 'Rise'}>
+                                                <iframe scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/59504/index.html" style={{border: '0px none', marginLeft: -25, height: 600, marginTop: -20, width: 600}}/>
+                                            </ElseIf>
+
+                                            <Else>
+                                                <iframe className="modal-full" src={this.state.urls[Index]}
+                                                        frameBorder="0" allow="autoplay; encrypted-media"></iframe>
+
+                                            </Else>
                                         </If>
-
-
-                                        <iframe className="modal-full" src={this.state.urls[Index]}
-                                                frameBorder="0" allow="autoplay; encrypted-media"></iframe>
-
                                     </div>
                                 </div>
                             </div>
