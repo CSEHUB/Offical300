@@ -22,7 +22,9 @@ import FourYearPlan from "./CoursePlannerWidget/components/FourYearPlan";
 
 export function makeWorkspace() {
     var course = document.getElementById("course").value;
-
+    if(course == ""){
+      return;
+    }
     firebase.auth().onAuthStateChanged( user => {
         if (user) {
             const userReference = firebase.database().ref(`users/${user.uid}`);
@@ -59,7 +61,7 @@ export class Dashboard extends Component {
 
         //ReactDOM.render(<Header />, document.getElementById('topNav'));
         ReactDOM.render(<SideMenu />, document.getElementById('menu-side'));
-        
+
         console.log(this.props);
         console.log(props.location.pathname);
         //get url
