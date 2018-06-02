@@ -30,6 +30,7 @@ export class Settings extends Component {
                                 <div><h3>Settings</h3></div>
                                     <div><h4>Delete Workspaces</h4></div>
                                     <div><h4>Change App Background Color</h4></div>
+
                                 </div>
                             </div>
                         </div>
