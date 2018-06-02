@@ -22,7 +22,7 @@ export default class CourseList extends React.Component {
      */
     addNumHours(course, quarter) {
         // Get reference to firebase boolean
-        var ref = this.props.db.database().ref('/Cape_Courses/Courses_2017/' + course);
+        var ref = this.props.db.database().ref('/Cape_2017/' + course);
 
         ref.on("value", (function(snapshot) {
             alert(snapshot.value);
