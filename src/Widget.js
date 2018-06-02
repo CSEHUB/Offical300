@@ -157,7 +157,6 @@ class Widget extends Component {
 
         else if (webURL.indexOf('autograder') !== -1) {
             courseType = "AutoGrader";
-            webURL = "http://www.piazza.com"
         }
         else if (webURL.indexOf('piazza') !== -1) {
             courseType = "Piazza";
@@ -499,7 +498,7 @@ class Widget extends Component {
                                     <div className="form-group">
                                         <label htmlFor="exampleFormControlInput1">Title: </label>
                                         <input id="course" type="text" className="form-control"
-                                               placeholder="CSE 105"/>
+                                               placeholder="ex: CSE 110"/>
                                     </div>
                                 </form>
 
