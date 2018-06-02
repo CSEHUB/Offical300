@@ -80,6 +80,10 @@ export class Dashboard extends Component {
             //Load widgets component, passing in that course name as a prop to load it's widgets
             ReactDOM.render(<Widget1 name={courseName}></Widget1>, document.getElementById('bottom'));
         }
+        else if(pageType == "planner"){
+
+            ReactDOM.render(<FourYearPlan name={courseName}></FourYearPlan>, document.getElementById('bottom'));
+        }
         else if(pageType == "settings"){
 
             ReactDOM.render(<Settings name={courseName}></Settings>, document.getElementById('bottom'));

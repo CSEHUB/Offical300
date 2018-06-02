@@ -16,6 +16,7 @@ import {
     NavLink
 } from 'react-router-dom'
 import {Homepage} from "./Homepage";
+import FourYearPlan from "./CoursePlannerWidget/components/FourYearPlan";
 
 var courses = new Array();
 
@@ -26,6 +27,16 @@ function addWidget(param) {
     {/* Render the course widgets */}
     ReactDOM.render(<Widget1 name={param}></Widget1>, document.getElementById('bottom'));
 }
+
+
+function openFourYearPlanner() {
+    {/* This removes any widgets that may be from a different class */}
+    ReactDOM.unmountComponentAtNode(document.getElementById('bottom'));
+
+    {/* Render the settings page */}
+    ReactDOM.render(<FourYearPlan/>, document.getElementById('bottom'));
+}
+
 
 function openSettings() {
     {/* This removes any widgets that may be from a different class */}
@@ -112,6 +123,7 @@ export class SideMenu extends Component {
                             <br></br>
                             <div className="border"></div>
                             <br></br>
+                            <li onClick={openFourYearPlanner}><NavLink exact to="/dashboard/planner" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-cog"></i></div><span className="pad-left-settings">College Planner</span></NavLink></li>
 
                             <li onClick={openSettings}><NavLink exact to="/dashboard/settings" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-cog"></i></div><span className="pad-left-settings">Settings</span></NavLink></li>
                             <li onClick={openHelp}><NavLink exact to="/dashboard/help" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-question"></i></div> <span className="pad-left-help">Help</span></NavLink></li>
