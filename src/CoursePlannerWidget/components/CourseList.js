@@ -21,11 +21,11 @@ export default class CourseList extends React.Component {
      * @param  {string} course The name of the course
      */
     addNumHours(course, quarter) {
-
         // Get reference to firebase boolean
-        var ref = this.props.db.database().ref(course);
+        var ref = this.props.db.database().ref('/Cape_Courses/Courses_2017/' + course);
 
         ref.on("value", (function(snapshot) {
+            alert(snapshot.value);
 
             // Check whether course is offered in quarter specified
             if (!snapshot.hasChild(quarter)) {
