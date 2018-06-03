@@ -3,7 +3,6 @@ import {makeWorkspace} from './Dashboard';
 import firebase from 'firebase';
 import 'firebase/database';
 import './index.css';
-
 import logo from './res/images/Logo.png'
 import gradesourceLogo from './res/images/GradeSource_logo.png'
 import piazzaLogo from './res/images/Piazza_logo.png'
@@ -23,14 +22,15 @@ var widgetNum = 0;
 var wid;
 var website;
 var urls;
-var secretGS;
-var GScourse;
 var widgetAdd;
 var uid;
 var dropDown;
-var courses = [];
-var gsGrade = "Overall Grade: 89.36%";
-var gsRank = "Class Rank: 197/247";
+var module = require('./courses');
+var courses = module.courses;
+var gsGrade = "Overall Grade: 90.65%"; //0229
+var gsRank = "Class Rank: 178/247";
+var secretGS;
+var GScourse;
 
 var json = '{"user": [{}],website }';
 
@@ -55,8 +55,6 @@ class Widget extends Component {
     constructor(name) {
         super();
         courseName = name;
-
-        this.GradeSourceCourses();
 
         this.state = {
             urls: new Array(),
@@ -206,6 +204,7 @@ class Widget extends Component {
         this.getWid();
     }
 
+    /*
     async GradeSourceCourses(){
         return firebase.database().ref('/GradeSource').once('value').then(function(snapshot) {
             snapshot.forEach(function(childSnapshot) {
@@ -216,9 +215,9 @@ class Widget extends Component {
             });
         });
     }
-
+*/
     GradeSource() {
-        var webURL = document.getElementById("GSURL").value;
+        var webURL = "http://www.gradesource.com/reports/7/29889/index.html"//document.getElementById("GSURL").value;
         secretGS = document.getElementById("secretNum").value;
         var course = document.getElementById("gsCourseName").value;
 
@@ -321,12 +320,12 @@ class Widget extends Component {
             x.innerHTML = "<div id=\"innerForm\">\n" +
                 "      <div class=\"form-group\">\n" +
                 "      <label htmlFor=\"exampleFormControlInput1\\\">GradeSource URL: </label>\n" +
-                "      <input id=\"GSURL\" type=\"text\" class=\"form-control\" placeholder=\"http://www.gradesource.com/reports/7/29889/index.html\"/>\n" +
-                "      <label htmlFor=\"exampleFormControlInput1\">Secret Number: </label>\n" +
-                "      <input id=\"secretNum\" type=\"text\" class=\"form-control\" placeholder=\"4320\"/>\n" +
                 "      <select class=\"form-control\" id=\"gsCourseName\" value={this.state.value}>\n" +
                 options +
-                "      </select>\n" +
+                "      </select>\n" +                "     " +
+                "<br/>" +
+                " <label htmlFor=\"exampleFormControlInput1\">Secret Number: </label>\n" +
+                "      <input id=\"secretNum\" type=\"text\" class=\"form-control\" placeholder=\"4320\"/>\n" +
                 "     </div>\n" +
                 "     </div>"
         }
@@ -629,8 +628,8 @@ class Widget extends Component {
                                     <div className="form-group">
                                         <label htmlFor="exampleFormControlSelect1">Choose Widget: </label>
                                         <select className="form-control" id="widgetType" onChange={Widget.dragDownForm} value={this.state.value}>
-                                            <option value="Visual">GradeSource Visualizer</option>
                                             <option value="Website">Website (Piazza, GradeScope, Autograder, etc)</option>
+                                            <option value="Visual">GradeSource Visualizer</option>
                                             <option value="Game">PICO-8 Game</option>
                                         </select>
                                     </div>
@@ -638,15 +637,8 @@ class Widget extends Component {
                                     <form>
                                         <div id="innerForm">
                                             <div className="form-group">
-                                            <label htmlFor="exampleFormControlInput1\">GradeSource URL: </label>
-                                            <input id="GSURL" type="text" className="form-control" placeholder="http://www.gradesource.com/reports/7/29889/index.html"/>
-                                            <label htmlFor="exampleFormControlInput1">Secret Number: </label>
-                                            <input id="secretNum" type="text" className="form-control" placeholder="4320"/>
-                                                <select className="form-control" id="gsCourseName" onChange={Widget.dragDownForm} value={this.state.value}>
-                                                {courses.map((course, index) => {
-                                                    return (<option id="gsCourse" value={course}>{course}</option>)
-                                                })}
-                                                </select>
+                                                <label htmlFor="exampleFormControlInput1">URL: </label>
+                                                <input id="webURL" type="text" class="form-control"/>
                                             </div>
                                         </div>
                                     </form>
