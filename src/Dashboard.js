@@ -121,13 +121,13 @@ export class Dashboard extends Component {
                 <div>
 
 
-                    {/* Add Widget Modal */}
-                    <div className="modal fade" id="modal-addWidget" tabIndex="-1" role="dialog"
+                    {/* Add Website Modal */}
+                    <div className="modal fade" id="modal-addWebsite" tabIndex="-1" role="dialog"
                          aria-labelledby="AddWebsite" aria-hidden="true">
                         <div className="modal-dialog modal-dialog-centered" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">
-                                    <h5 className="modal-title" id="exampleModalLongTitle">New Widget:</h5>
+                                    <h5 className="modal-title" id="exampleModalLongTitle">Add New Workspace:</h5>
                                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -136,36 +136,21 @@ export class Dashboard extends Component {
 
                                     <form>
                                         <div className="form-group">
-                                            <label htmlFor="exampleFormControlSelect1">Choose Widget: </label>
-                                            <select className="form-control" id="widgetType" onChange={Widget.dragDownForm} value={this.state.value}>
-                                                <option value="Website">Website (Piazza, GradeScope, Autograder, etc)</option>
-                                                <option value="Visual">GradeSource Visualizer</option>
-                                                <option value="Game">PICO-8 Game</option>
-                                            </select>
+                                            <label htmlFor="exampleFormControlInput1">Title: </label>
+                                            <input id="course" type="text" className="form-control"
+                                                   placeholder="ex: CSE 110"/>
                                         </div>
-
-                                        <form>
-                                            <div id="innerForm">
-                                                <div className="form-group">
-                                                    <label htmlFor="exampleFormControlInput1">URL: </label>
-                                                    <input id="webURL" type="text" class="form-control"/>
-                                                </div>
-                                            </div>
-                                        </form>
-
                                     </form>
 
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel
                                     </button>
-                                    <button onClick={this.makeWidget} type="button" className="btn btn-primary" data-dismiss="modal">Add Widget</button>
+                                    <button onClick={Dashboard.makeWorkspace} type="button" className="btn btn-primary" data-dismiss="modal">Save Course</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
 
 
 
