@@ -446,7 +446,35 @@ li{
     to { transform: rotate(360deg); }
 }
 
+/* --------- Settings  ---------- */
 
+
+.removeWorkspaceWrapper{
+    margin:5px;
+}
+
+.removeWorkspaceItem{
+    padding:10px;
+    width:75%;
+}
+
+.removeWorkspaceItem:hover{
+    background: #f5f4f4;
+}
+
+.removeWorkspaceName{
+    float:left;
+    font-size: 20px;
+    width:90%;
+}
+
+.minusWorkspace{
+    font-size: 21px;
+    cursor:pointer;
+    width:10%;
+    color:red;
+    padding-left: 15px;
+}
 
 
 /* --------- Center Login Auth Div ---------- */
