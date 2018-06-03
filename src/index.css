@@ -353,6 +353,10 @@ button.close:focus {
     padding-top: 65px;
 }
 
+.widgetLogo.pdfLogo{
+    width: 30%;
+    padding-top: 62px;
+}
 .pacman-iframe{
     min-height: 400px;
 }
