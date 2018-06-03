@@ -49,7 +49,7 @@ export default class CourseList extends React.Component {
      * @param  {string} quarter quarter being checked
      */
     subNumHours(course, quarter) {
-        var ref = this.props.db.database().ref(course);
+        var ref = this.props.db.database().ref('/Cape_2017/' + course);
 
         ref.on("value", (function(snapshot) {
             snapshot.forEach((function(data) {
