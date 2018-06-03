@@ -157,6 +157,8 @@ class Widget extends Component {
 
         var webURL = document.getElementById("webURL").value;
 
+        //must keep and store orig URL since we can't load all lowercase in iframes
+        var origURL = webURL;
         //Make sure url is lowercase for comparisons
         webURL = webURL.toLowerCase();
 
@@ -183,19 +185,23 @@ class Widget extends Component {
         }
 
         //Check if "http://" is at begin if not add it
-        if (webURL.indexOf('http') != 0) {
-            webURL = 'http://' + webURL;
+        if (origURL.indexOf('http') != 0) {
+            origURL = 'http://' + origURL;
         }
+
+        //clear input text box if user tries to quickly add another widget
+        //removes previous widget url
+        document.getElementById("webURL").value = "";
 
         //Update local widgets.
         this.setState({ website: this.state.website.concat(courseType) });
-        this.setState({ urls: this.state.urls.concat(webURL) });
+        this.setState({ urls: this.state.urls.concat(origURL) });
         this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
         this.setState({ secretNum: this.state.secretNum.concat(0) });
 
         //Update variables to be pushed.
         website = courseType;
-        urls = webURL;
+        urls = origURL;
 
         //Increment widget count for unique ID for modal popup identifier.
         widgetNum++;
