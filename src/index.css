@@ -87,6 +87,16 @@ a:hover {
 }
 
 
+
+.modal-title{
+    font-size: 22px;
+    font-weight: 600;
+}
+
+button.close:focus {
+    outline: none;
+}
+
 /* --------- Top Nav Styles --------- */
 .topNavContainer{
     position: fixed;
@@ -174,6 +184,10 @@ a:hover {
 }
 
 
+.modal button.btn.btn-primary {
+    background-color: #069de2;
+}
+
 
 
 /* --------- Widget Styles ---------- */
@@ -185,7 +199,7 @@ a:hover {
     margin-right: 30px;
     border-radius: 70px;
     background: #069de2;
-    padding: 12px;
+    padding: 12px 18px 12px 18px;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 }
@@ -394,6 +408,7 @@ li{
 }
 .border {
     border: 1px solid #dee2e6 !important;
+    margin-bottom: 10px;
 }
 .activeMenuItem{
     background:#f5f4f4;
@@ -450,16 +465,20 @@ li{
 
 
 .removeWorkspaceWrapper{
-    margin:5px;
+    margin: 20px 5px 5px 5px;
 }
 
 .removeWorkspaceItem{
+    margin-bottom: 20px;
     padding:10px;
     width:75%;
+    background-color: #f7f4f4;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.301), 0 1px 3px 1px rgba(60,64,67,0.150)
 }
 
 .removeWorkspaceItem:hover{
     background: #f5f4f4;
+    box-shadow: 0 1px 3px 0 rgba(61,65,68,0.303), 0 4px 8px 3px rgba(60,64,67,0.150)
 }
 
 .removeWorkspaceName{
@@ -476,10 +495,14 @@ li{
     padding-left: 15px;
 }
 
+.deleteWorkspaceWrapper{
+    padding:28px;
+}
+
 
 /* --------- Course Planner Section ---------- */
 #planningTable {
-    padding: 40px 40px 20px 90px;
+    padding: 40px 40px 20px 55px;
 }
 
 .quarter{

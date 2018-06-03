@@ -12,6 +12,7 @@ import {
     Link,
     NavLink
 } from 'react-router-dom'
+import {makeWorkspace} from "./Dashboard";
 
 
 export class Settings extends Component {
@@ -82,8 +83,8 @@ export class Settings extends Component {
                         <div className="col-md-8 offset-md-2 settings-wrapper">
                             <div className="settings-outer">
                                 <div className="settings-inner">
-                                <div><h3>Settings</h3></div>
-                                    <div><h4>Delete Workspaces:</h4></div>
+                                    <div><h3><b>Settings</b></h3></div>
+                                    <div className="deleteWorkspaceWrapper"><h4>Delete Workspaces:</h4>
 
 
                                     <ul className="removeWorkspaceWrapper">
@@ -95,6 +96,8 @@ export class Settings extends Component {
                                     })}
 
                                     </ul>
+
+                                    </div>
 
                                     <div><h4>Change App Background Color</h4></div>
 
@@ -138,6 +141,38 @@ export class Settings extends Component {
                     })}
 
 
+
+
+                {/* Add Workspace Modal */}
+                <div className="modal fade" id="modal-addWebsite" tabIndex="-1" role="dialog"
+                     aria-labelledby="AddWebsite" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLongTitle">Add New Workspace:</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+
+                                <form>
+                                    <div className="form-group">
+                                        <label htmlFor="exampleFormControlInput1">Title: </label>
+                                        <input id="course" type="text" className="form-control"
+                                               placeholder="ex: CSE 110"/>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel
+                                </button>
+                                <button onClick={makeWorkspace} type="button" className="btn btn-primary" data-dismiss="modal">Save Course</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 

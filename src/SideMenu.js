@@ -120,8 +120,10 @@ export class SideMenu extends Component {
                             {/* Lower portion of side menu */}
                             <br></br>
                             <br></br>
-                            <div className="border"></div>
-                            <li onClick={openFourYearPlanner}><NavLink exact to="/dashboard/planner" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"></div><span className="pad-left-settings">College Planner</span></NavLink></li>
+                            <br></br>
+                            <li onClick={openFourYearPlanner}><NavLink exact to="/dashboard/planner" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-sticky-note"></i></div><span className="pad-left-settings">College Planner</span></NavLink></li>
+                            <br></br>
+
                             <div className="border"></div>
 
                             <li onClick={openSettings}><NavLink exact to="/dashboard/settings" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-cog"></i></div><span className="pad-left-settings">Settings</span></NavLink></li>
