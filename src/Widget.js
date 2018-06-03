@@ -184,6 +184,11 @@ class Widget extends Component {
             courseType = "Other";
         }
 
+        //if pdf, chrome can load it 100%
+        if (origURL.indexOf('.pdf') != 0) {
+            origURL = origURL + "#zoom=100";
+        }
+
         //Check if "http://" is at begin if not add it
         if (origURL.indexOf('http') != 0) {
             origURL = 'http://' + origURL;
@@ -514,7 +519,7 @@ class Widget extends Component {
                                     </div>
 
                                 </ElseIf>
-                                
+
                             </If>
 
 

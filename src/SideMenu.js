@@ -201,7 +201,7 @@ export class SideMenu extends Component {
                             <br></br>
                             <br></br>
                             <br></br>
-                            <li onClick={openFourYearPlanner}><NavLink exact to="/dashboard/planner" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-sticky-note"></i></div><span className="pad-left-settings">College Planner</span></NavLink></li>
+                            <li onClick={openFourYearPlanner}><NavLink exact to="/dashboard/planner" className="menu-main-item mih" activeClassName="activeMenuItem"><div className="menu-icons"><i className="fas fa-sticky-note"></i></div><span className="pad-left-settings">Planner</span></NavLink></li>
                             <br></br>
 
                             <div className="border"></div>
