@@ -12,7 +12,7 @@ import podcastLogo from './res/images/podcast.png'
 import celesteLogo from './res/images/celeste.png'
 import picoLogo from './res/images/picoracer.png'
 import flappyBeeLogo from './res/images/flappyBee.png'
-
+import defaultWidget from './res/images/defaultWidget.png'
 
 import { If, Then, ElseIf, Else } from 'react-if-elseif-else-render';
 import ReactDOM from "react-dom";
@@ -450,7 +450,7 @@ class Widget extends Component {
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
-                                            <img className="widgetLogoCeleste" src={podcastLogo}/>
+                                            <img className="widgetLogo podcast-logo" src={podcastLogo}/>
                                         </div>
                                     </div>
 
@@ -458,7 +458,7 @@ class Widget extends Component {
 
 
 
-                                {/* If Other website, just show CSEHUB logo */}
+                                {/* If Other website, just show CSEHUB default */}
                                 <ElseIf condition={this.state.website[arrayIndex] == 'Other'}>
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12  w-container-out">
                                         <div className="w-top">
@@ -466,7 +466,7 @@ class Widget extends Component {
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
-                                            <img className="widgetLogo" src={logo}/>
+                                            <img className="widgetLogo defaultWidget" src={defaultWidget}/>
                                         </div>
                                     </div>
 
@@ -514,6 +514,7 @@ class Widget extends Component {
                                     </div>
 
                                 </ElseIf>
+                                
                             </If>
 
 
