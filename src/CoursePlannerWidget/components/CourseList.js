@@ -22,10 +22,9 @@ export default class CourseList extends React.Component {
      */
     addNumHours(course, quarter) {
         // Get reference to firebase boolean
-        var ref = this.props.db.database().ref('/Cape_Courses/Courses_2017/' + course);
+        var ref = this.props.db.database().ref('/Cape_2017/' + course);
 
         ref.on("value", (function(snapshot) {
-            alert(snapshot.value);
 
             // Check whether course is offered in quarter specified
             if (!snapshot.hasChild(quarter)) {
@@ -74,7 +73,7 @@ export default class CourseList extends React.Component {
 
             // Adjust the total number of hours per week
             //this.props.timeChangeCallback(this.getNumHours(this._inputElement.value));
-            this.addNumHours(this._inputElement.value, this.props.qt);
+            this.addNumHours(this._inputElement.value.toUpperCase(), this.props.qt);
 
             this.setState((prevState) => {
                 return {
@@ -93,7 +92,7 @@ export default class CourseList extends React.Component {
     deleteItem(key) {
         var filteredItems = this.state.items.filter((function (item) {
             if (item.key === key) {
-                this.subNumHours(item.text, this.props.qt);
+                this.subNumHours(item.text.toUpperCase(), this.props.qt);
             }
 
             return (item.key !== key);
