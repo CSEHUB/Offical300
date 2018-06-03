@@ -214,10 +214,11 @@ class Widget extends Component {
         var course = document.getElementById("gsCourse").value;
 
         //Get firebase data Overall grade, rank
-        var ref = firebase.database().ref('/GradeSource/' + course + '/' + secretNum);
+        var ref = firebase.database().ref('GradeSource/' + course + '/' + secretNum);
 
-        //alert(ref.val());
-
+        ref.once('value').then((snapshot) => {
+            alert(snapshot.val().Grade);
+        });
         //Make sure url is lowercase for comparisons
         webURL = webURL.toLowerCase();
 
@@ -301,14 +302,21 @@ class Widget extends Component {
                 "        </div>"
         }
         else if(event.target.value === "GradeSource"){
-            x.innerHTML = "<div class=\"form-group\">\n" +
-                "            <label htmlFor=\"exampleFormControlInput1\">GradeSource URL: </label>\n" +
-                "            <input id=\"GSURL\" type=\"text\" class=\"form-control\"\n" +
-                "                   placeholder=\"http://www.gradesource.com/reports/7/29889/index.html\"/>\n" +
-                "            <label htmlFor=\"exampleFormControlInput1\">Secret Number: </label>\n" +
-                "            <input id=\"secretNum\" type=\"text\" class=\"form-control\"\n" +
-                "                   placeholder=\"43207\"/>\n" +
-                "        </div>"
+            var options = "";
+            courses.map((course, index) => {
+                     options += "<option id=\"gsCourse\" value=\"" + course + "\">" + course + "</option>"
+            })
+            x.innerHTML = "<div id=\"innerForm\">\n" +
+                "      <div class=\"form-group\">\n" +
+                "      <label htmlFor=\"exampleFormControlInput1\\\">GradeSource URL: </label>\n" +
+                "      <input id=\"GSURL\" type=\"text\" class=\"form-control\" placeholder=\"http://www.gradesource.com/reports/7/29889/index.html\"/>\n" +
+                "      <label htmlFor=\"exampleFormControlInput1\">Secret Number: </label>\n" +
+                "      <input id=\"secretNum\" type=\"text\" class=\"form-control\" placeholder=\"4320\"/>\n" +
+                "      <select class=\"form-control\" id=\"widgetType\" onChange={Widget.dragDownForm} value={this.state.value}>\n" +
+                options +
+                "      </select>\n" +
+                "     </div>\n" +
+                "     </div>"
         }
         else if(event.target.value === "Game"){
             x.innerHTML = "<div class=\"form-group\">\n" +
