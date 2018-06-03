@@ -75,8 +75,9 @@ export class Settings extends Component {
 
     render(){
         return(
+            <Router>
             <div className="container-fluid">
-                <Router>
+
                     <div className="row">
                         <div className="col-md-8 offset-md-2 settings-wrapper">
                             <div className="settings-outer">
@@ -89,7 +90,7 @@ export class Settings extends Component {
 
                                     {this.state.courses.map((courseTitle, arrayIndex) => {
                                         return (
-                                            <li className="removeWorkspaceItem"><div className="removeWorkspaceName">{courseTitle}</div><div className="minusWorkspace"><i onClick={this.rmWorkspace.bind(this, arrayIndex)}  className="fas fa-minus-circle"></i></div></li>
+                                            <li className="removeWorkspaceItem"><div className="removeWorkspaceName">{courseTitle}</div><div className="minusWorkspace"><i data-toggle="modal" data-target={'#' + this.state.courseKeys[arrayIndex]} className="fas fa-minus-circle"></i></div></li>
                                         )
                                     })}
 
@@ -101,9 +102,47 @@ export class Settings extends Component {
                             </div>
                         </div>
                     </div>
-                </Router>
-            </div>
 
+
+
+
+                    {this.state.courses.map((courseTitleModal, arrayIndex) => {
+                        return (
+
+                    <div className="modal fade" id={this.state.courseKeys[arrayIndex]} tabIndex="-1" role="dialog"
+                         aria-labelledby="deleteWorkspace" aria-hidden="true">
+                        <div className="modal-dialog modal-dialog-centered" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="exampleModalLongTitle">Delete Workspace:</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+
+                                    <p>Are you sure you want to delete workspace: {courseTitleModal}?</p>
+
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel
+                                    </button>
+                                    <button onClick={this.rmWorkspace.bind(this, arrayIndex)} type="button" className="btn btn-primary" data-dismiss="modal">Delete Workspace</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    )
+                    })}
+
+
+
+
+
+            </div>
+            </Router>
         );
     }
 }
