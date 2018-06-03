@@ -232,7 +232,7 @@ button.close:focus {
     box-shadow: 0 1px 2px 0 rgba(60,64,67,0.301), 0 1px 3px 1px rgba(60,64,67,0.150);
     resize: both;
     background-color: white;
-    height: 250px;
+    height: 270px;
 }
 
 .inline{
@@ -327,6 +327,11 @@ button.close:focus {
      padding-top: 93px;
  }
 
+.widgetLogo.podcast-logo{
+    width:45%;
+    padding-top: 40px;
+}
+
 .widgetLogoPico{
     width:100%;
     margin-left: auto;
@@ -336,11 +341,20 @@ button.close:focus {
 }
 
 .widgetLogoCeleste{
-    width:100%;
+    width:65%;
     margin-left: auto;
     margin-right: auto;
     display: block;
     padding-top:0px;
+}
+
+.widgetLogo.defaultWidget{
+    width: 43%;
+    padding-top: 65px;
+}
+
+.pacman-iframe{
+    min-height: 400px;
 }
 
 .beeScale {
@@ -984,7 +998,5 @@ h5 {
 /* -------- Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
 
-    .widgetLogo{
-        padding-top: 75px;
-    }
+
 }
