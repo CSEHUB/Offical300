@@ -73,18 +73,42 @@ class Widget extends Component {
     }
 
     //Function to remove a widget from firebase, and website.
-    async rmWidget(param) {
-        var uid = this.state.uid[param]; //Get the widget id
+    rmWidget(param) {
+        firebase.auth().onAuthStateChanged( user => {
+            if (user) {
+                var uid = this.state.uid[param]; //Get the widget id
 
-        //Got to path of widget. Under workspace id
-        var path = `workspaces/` + wid + '/widgets';
-        const ref = await firebase.database().ref(path);
+                //Got to path of widget. Under workspace id
+                var path = `workspaces/` + wid + '/widgets';
+                const ref = firebase.database().ref(path);
 
-        //Delete child at widget id
-        ref.child(uid).remove();
+                //Delete child at widget id
+                ref.child(uid).remove();
 
-        //Re render widgets on deletion  of widget.
-        window.location.reload(); //Will change later.
+                //Re render widgets on deletion  of widget.
+                this.setState(prevState => {
+                    let newUrls = prevState.urls.slice();
+                    let newWebsite = prevState.website.slice();
+                    let newWidgetID = prevState.widgetID.slice();
+                    let newUid = prevState.uid.slice();
+                    let newSecretNum = prevState.secretNum.slice();
+                    newUrls.splice(param, 1);
+                    newWebsite.splice(param, 1);
+                    newWidgetID.splice(param, 1);
+                    newUid.splice(param, 1);
+                    console.log(newUrls);
+                    newSecretNum.splice(param, 1);
+                    return {
+                        urls: newUrls,
+                        website: newWebsite,
+                        widgetID: newWidgetID,
+                        uid: newUid,
+                        secretNum: newSecretNum
+                    }
+                });
+            }
+        });
+        //window.location.reload(); //Will change later.
     }
 
     //Get workspace ID and call upload widget or download widgets
