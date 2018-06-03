@@ -23,9 +23,14 @@ var widgetNum = 0;
 var wid;
 var website;
 var urls;
+var secretGS;
+var GScourse;
 var widgetAdd;
 var uid;
 var dropDown;
+var courses = [];
+var gsGrade = "Overall Grade: 89.36%";
+var gsRank = "Class Rank: 197/247";
 
 var json = '{"user": [{}],website }';
 
@@ -51,11 +56,14 @@ class Widget extends Component {
         super();
         courseName = name;
 
+        this.GradeSourceCourses();
+
         this.state = {
             urls: new Array(),
             website: new Array(),
             widgetID: new Array(),
-            uid: new Array()
+            uid: new Array(),
+            secretNum: new Array()
         }
 
         this.makeWidget = this.makeWidget.bind(this);
@@ -121,6 +129,7 @@ class Widget extends Component {
                     snapshot.forEach((childSnapshot) => {
                         website = childSnapshot.val().courseType;
                         urls = childSnapshot.val().url;
+                        secretGS = childSnapshot.val().secretNum;
                         uid = childSnapshot.key;
 
                         //Update local widgets.
@@ -128,6 +137,8 @@ class Widget extends Component {
                         this.setState({ urls: this.state.urls.concat(urls) });
                         this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
                         this.setState({ uid: this.state.uid.concat(uid) });
+                        this.setState({ secretNum: this.state.secretNum.concat(secretGS) });
+
 
                         //Increase ID num for nexr widget. (for iframe display)
                         widgetNum++;
@@ -182,6 +193,7 @@ class Widget extends Component {
         this.setState({ website: this.state.website.concat(courseType) });
         this.setState({ urls: this.state.urls.concat(webURL) });
         this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
+        this.setState({ secretNum: this.state.secretNum.concat(0) });
 
         //Update variables to be pushed.
         website = courseType;
@@ -194,9 +206,27 @@ class Widget extends Component {
         this.getWid();
     }
 
+    async GradeSourceCourses(){
+        return firebase.database().ref('/GradeSource').once('value').then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+
+                var courseName = childSnapshot.key;
+                courses.push(courseName);
+
+            });
+        });
+    }
+
     GradeSource() {
         var webURL = document.getElementById("GSURL").value;
-        var secretNum = document.getElementById("secretNum").value;
+        secretGS = document.getElementById("secretNum").value;
+        var course = document.getElementById("gsCourseName").value;
+
+        //Get firebase data Overall grade, rank
+        firebase.database().ref("/GradeSource/" + course + "/" + secretGS).once('value').then(function(snapshot) {
+            gsGrade = "Overall Grade: " + snapshot.val().Grade;
+            gsRank = "Rank:" + snapshot.val().Rank;
+        });
 
         //Make sure url is lowercase for comparisons
         webURL = webURL.toLowerCase();
@@ -207,15 +237,16 @@ class Widget extends Component {
         }
 
         //Make URL http://www.sourcegrade.xyz/grades?id=4562&url=http://www.gradesource.com/reports/7/29889/index.html
-        var sourceGrade = "http://www.sourcegrade.xyz/grades?id=" + secretNum + "&url=" + webURL;
+        var sourceGrade = "http://www.sourcegrade.xyz/grades?id=" + secretGS + "&url=" + webURL;
 
         //Update local widgets.
-        this.setState({ website: this.state.website.concat("GradeSource") });
+        this.setState({ website: this.state.website.concat("Visual") });
         this.setState({ urls: this.state.urls.concat(webURL) });
         this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
+        this.setState({ secretNum: this.state.secretNum.concat(secretGS) });
 
         //Update variables to be pushed.
-        website = "GradeSource";
+        website = "Visual";
         urls = webURL;
 
         //Increment widget count for unique ID for modal popup identifier.
@@ -230,6 +261,8 @@ class Widget extends Component {
         this.setState({ website: this.state.website.concat(dropDown) });
         this.setState({ urls: this.state.urls.concat(dropDown) });
         this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
+        this.setState({ secretNum: this.state.secretNum.concat(0) });
+
 
         //Update variables to be pushed.
         website = dropDown;
@@ -255,7 +288,7 @@ class Widget extends Component {
             this.websiteWidget();
         }
 
-        else if(widgetType === "GradeSource") {
+        else if(widgetType === "Visual") {
             this.GradeSource();
         }
         else if(widgetType === "Game") {
@@ -280,15 +313,22 @@ class Widget extends Component {
                 "                   placeholder=\"\"/>\n" +
                 "        </div>"
         }
-        else if(event.target.value === "GradeSource"){
-            x.innerHTML = "<div class=\"form-group\">\n" +
-                "            <label htmlFor=\"exampleFormControlInput1\">GradeSource URL: </label>\n" +
-                "            <input id=\"GSURL\" type=\"text\" class=\"form-control\"\n" +
-                "                   placeholder=\"http://www.gradesource.com/reports/7/29889/index.html\"/>\n" +
-                "            <label htmlFor=\"exampleFormControlInput1\">Secret Number: </label>\n" +
-                "            <input id=\"secretNum\" type=\"text\" class=\"form-control\"\n" +
-                "                   placeholder=\"43207\"/>\n" +
-                "        </div>"
+        else if(event.target.value === "Visual"){
+            var options = "";
+            courses.map((course, index) => {
+                     options += "<option id=\"gsCourse\" value=\"" + course + "\">" + course + "</option>"
+            })
+            x.innerHTML = "<div id=\"innerForm\">\n" +
+                "      <div class=\"form-group\">\n" +
+                "      <label htmlFor=\"exampleFormControlInput1\\\">GradeSource URL: </label>\n" +
+                "      <input id=\"GSURL\" type=\"text\" class=\"form-control\" placeholder=\"http://www.gradesource.com/reports/7/29889/index.html\"/>\n" +
+                "      <label htmlFor=\"exampleFormControlInput1\">Secret Number: </label>\n" +
+                "      <input id=\"secretNum\" type=\"text\" class=\"form-control\" placeholder=\"4320\"/>\n" +
+                "      <select class=\"form-control\" id=\"gsCourseName\" value={this.state.value}>\n" +
+                options +
+                "      </select>\n" +
+                "     </div>\n" +
+                "     </div>"
         }
         else if(event.target.value === "Game"){
             x.innerHTML = "<div class=\"form-group\">\n" +
@@ -324,7 +364,7 @@ class Widget extends Component {
                         return (
                             <If condition={this.state.website[arrayIndex] == 'GradeSource'}>
 
-                                {/* If Gradesource, display scraped data from secret number */}
+                                {/* If Gradesource Visual, show logo only */}
                                 <Then>
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 w-container-out">
                                         <div className="w-top">
@@ -336,6 +376,22 @@ class Widget extends Component {
                                         </div>
                                     </div>
                                 </Then>
+
+                                {/* If Gradesource Visualizer, display scraped data from secret number */}
+                                <ElseIf condition={this.state.website[arrayIndex] == 'Visual'}>
+                                    <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 w-container-out">
+                                        <div className="w-top">
+                                            <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                        </div>
+                                        <div id="e" draggable="true" className="w-container" data-toggle="modal"
+                                             data-target={'#' + this.state.widgetID[arrayIndex]}>
+                                            <img className="widgetLogo" src={gradesourceLogo}/>
+                                            <br/>
+                                            <center>{gsGrade}</center>
+                                            <center>{gsRank}</center>
+                                        </div>
+                                    </div>
+                                </ElseIf>
 
 
                                 {/* If piazza, just show logo */}
@@ -468,8 +524,6 @@ class Widget extends Component {
                         <div key={Index} className="modal fade" id={this.state.widgetID[Index]} tabIndex="-1" role="dialog"
                              aria-labelledby={this.state.widgetID[Index]}  aria-hidden="true">
 
-
-
                                         <If condition={this.state.website[Index] == 'GradeScope'}>
                                             <Then>
                                                 <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
@@ -486,7 +540,7 @@ class Widget extends Component {
                                                 <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
                                                     <div className="modal-content widget-modal-h">
                                                         <div className="modal-body widget-modal-h">
-                                                <iframe scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/235259/Celeste/index.html" style={{border: '0px none', marginLeft: '0px', height: 565, marginTop: 0, width: 570}}/>
+                                                <iframe sandbox="allow-scripts" scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/235259/Celeste/index.html" style={{border: '0px none', marginLeft: '0px', height: 565, marginTop: 0, width: 570}}/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -496,7 +550,7 @@ class Widget extends Component {
                                                 <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
                                                     <div className="modal-content widget-modal-h">
                                                         <div className="modal-body widget-modal-h">
-                                                <iframe scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/394002/picoracer/index.html" style={{border: '0px none', marginLeft: 0, height: 650, marginTop: 0, width: 575}}/>
+                                                <iframe sandbox="allow-scripts" scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/394002/picoracer/index.html" style={{border: '0px none', marginLeft: 0, height: 650, marginTop: 0, width: 575}}/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -506,7 +560,7 @@ class Widget extends Component {
                                                 <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
                                                     <div className="modal-content widget-modal-h">
                                                         <div className="modal-body widget-modal-h">
-                                                            <iframe scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/524861/index.html" allowFullScreen style={{border: '0px none', marginLeft: 0, height: 650, marginTop: 0, width: 575}}/>
+                                                            <iframe sandbox="allow-scripts" scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/524861/index.html" allowFullScreen style={{border: '0px none', marginLeft: 0, height: 650, marginTop: 0, width: 575}}/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -575,7 +629,7 @@ class Widget extends Component {
                                     <div className="form-group">
                                         <label htmlFor="exampleFormControlSelect1">Choose Widget: </label>
                                         <select className="form-control" id="widgetType" onChange={Widget.dragDownForm} value={this.state.value}>
-                                            <option value="GradeSource">GradeSource Visualizer</option>
+                                            <option value="Visual">GradeSource Visualizer</option>
                                             <option value="Website">Website (Piazza, GradeScope, Autograder, etc)</option>
                                             <option value="Game">PICO-8 Game</option>
                                         </select>
@@ -588,6 +642,11 @@ class Widget extends Component {
                                             <input id="GSURL" type="text" className="form-control" placeholder="http://www.gradesource.com/reports/7/29889/index.html"/>
                                             <label htmlFor="exampleFormControlInput1">Secret Number: </label>
                                             <input id="secretNum" type="text" className="form-control" placeholder="4320"/>
+                                                <select className="form-control" id="gsCourseName" onChange={Widget.dragDownForm} value={this.state.value}>
+                                                {courses.map((course, index) => {
+                                                    return (<option id="gsCourse" value={course}>{course}</option>)
+                                                })}
+                                                </select>
                                             </div>
                                         </div>
                                     </form>
