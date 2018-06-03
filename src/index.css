@@ -477,6 +477,86 @@ li{
 }
 
 
+/* --------- Course Planner Section ---------- */
+#planningTable {
+    padding: 40px 40px 20px 90px;
+}
+
+.quarter{
+    background-color: white;
+    padding: 31px;
+    min-height: 280px;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.301), 0 1px 3px 1px rgba(60,64,67,0.150);
+}
+
+.quarter:hover{
+    box-shadow: 0 1px 3px 0 rgba(61,65,68,0.303), 0 4px 8px 3px rgba(60,64,67,0.150);
+}
+
+.plannerButton{
+    border-radius: 8px;
+    padding: 9px;
+    font-size: 18px;
+    margin: 0px;
+    margin-right: 0px;
+    background-color: #009de2;
+    color: #FFFFFF;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+.plannerButton:hover{
+    background-color: #09adf5;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+}
+
+.plannerButton:visited, .plannerButton:focus{
+    outline: none;
+}
+
+.plannerInput{
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid #FFF;
+    width: 70%;
+    border: 2px solid #b6b6bb;
+    margin-right: 6px;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+.plannerInput:hover, .plannerInput:focus, .plannerInput:visited{
+    outline:none;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+}
+
+.plannerCourseName{
+    float:left;
+    width:90%;
+}
+
+.plannerCourseRemove{
+    display: none;
+    color:red;
+    font-size: 20px;
+}
+
+.plannerCourseNameWrapper{
+    width: 70%;
+}
+
+.plannerCourseNameWrapper:hover{
+    background-color: #f5f4f4 !important;
+    cursor: pointer;
+}
+.plannerCourseNameWrapper:hover .plannerCourseRemove{
+    display: block;
+}
+
+
+
 /* --------- Center Login Auth Div ---------- */
 .full-w-h{
     position: absolute;
@@ -799,6 +879,10 @@ h5 {
         padding: 8% 8% 8% 8%;
     }
 
+    .plannerInput{
+        width:60%;
+    }
+
 }
 
 
@@ -848,6 +932,10 @@ h5 {
 
     .w-container{
         height:200px;
+    }
+
+    .plannerInput{
+        width:60%;
     }
 }
 

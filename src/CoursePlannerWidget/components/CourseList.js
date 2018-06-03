@@ -122,10 +122,10 @@ export default class CourseList extends React.Component {
             <div className="courseListMain">
                 <div className="header">
                     <form onSubmit={this.addItem}>
-                        <input ref={(a) => this._inputElement = a}
+                        <input className="plannerInput" ref={(a) => this._inputElement = a}
                                placeholder={this.props.qt.concat(" course")}>
                         </input>
-                        <button type="submit">add</button>
+                        <button className="plannerButton" type="submit">Add</button>
                     </form>
                 </div>
                 <CourseItems entries={this.state.items}

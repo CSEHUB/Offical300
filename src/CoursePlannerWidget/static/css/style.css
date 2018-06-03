@@ -1,3 +1,5 @@
+
+/* ---------
 .courseListMain .header input {
     padding: 10px;
     font-size: 16px;
@@ -18,16 +20,17 @@
     border: 2px solid #003399;
     cursor: pointer;
 }
+
+--- */
 .courseListMain .theList {
     list-style: none;
-    padding-left: 0;
-    width: 250px;
+    padding-top: 10px;
 }
 .courseListMain .theList li {
     color: #333;
     background-color: rgba(255,255,255,.5);
     padding: 15px;
-    margin-bottom: 15px;
+    padding: 16px 18px 18px 14px;
     border-radius: 5px;
     list-style: none;
 }

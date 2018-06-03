@@ -50,19 +50,21 @@ export default class Quarter extends React.Component {
 
     render () {
         return(
-            <div>
-                <tr>
+            <div className="quarter">
+
                     <h4>
+                        <b>
                         {this.props.qt} Quarter
+                    </b>
                     </h4>
                     <p>
                         {this.state.hours} hours per week
                     </p>
-                </tr>
-                <tr>
+
+
                     <CourseList qt={this.props.qt} yr={this.props.yr}
                                 timeChangeCallback={this.hoursCallback} db={firebase} />
-                </tr>
+
             </div>
         );
     }

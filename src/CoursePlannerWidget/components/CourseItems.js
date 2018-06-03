@@ -12,8 +12,8 @@ export default class CourseItems extends React.Component {
     }
 
     createCourses(item) {
-        return <li onClick={() => this.delete(item.key)}
-                   key={item.key}>{item.text}</li>
+        return <li className="plannerCourseNameWrapper" onClick={() => this.delete(item.key)}
+                   key={item.key}><div className="plannerCourseName">{item.text}</div> <i class="fas fa-minus-circle plannerCourseRemove"></i></li>
     }
 
     render() {
