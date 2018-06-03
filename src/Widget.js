@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {makeWorkspace} from './Dashboard';
+import {Dashboard} from './Dashboard';
 import firebase from 'firebase';
 import 'firebase/database';
 import './index.css';
@@ -605,7 +605,7 @@ class Widget extends Component {
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel
                                 </button>
-                                <button onClick={makeWorkspace} type="button" className="btn btn-primary" data-dismiss="modal">Save Course</button>
+                                <button onClick={Dashboard.makeWorkspace} type="button" className="btn btn-primary" data-dismiss="modal">Save Course</button>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import OneYearPlan from './OneYearPlan'
-import {makeWorkspace} from "../../Dashboard";
+import {Dashboard} from "../../Dashboard";
+
 
 export default class FourYearPlan extends React.Component {
     render() {
@@ -37,7 +38,7 @@ export default class FourYearPlan extends React.Component {
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel
                         </button>
-                        <button onClick={makeWorkspace} type="button" className="btn btn-primary" data-dismiss="modal">Save Course</button>
+                        <button onClick={Dashboard.makeWorkspace.bind(this,this.props)} type="button" className="btn btn-primary" data-dismiss="modal">Save Course</button>
                     </div>
                 </div>
             </div>

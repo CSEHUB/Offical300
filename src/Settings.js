@@ -13,7 +13,8 @@ import {
     NavLink
 } from 'react-router-dom'
 
-import {makeWorkspace} from "./Dashboard";
+import {Dashboard} from "./Dashboard";
+import {last_position} from "./SideMenu";
 
 
 export class Settings extends Component {
@@ -24,33 +25,38 @@ export class Settings extends Component {
         this.state ={
             user : null,
             courses : new Array(),
-            courseKeys: new Array()
+            courseKeys : new Array(),
+            position : new Array()
         };
     }
 
     //Function to remove a workspace from firebase, and website.
     async rmWorkspace(param) {
-        //get workspace key
-        var workspaceID = this.state.courseKeys[param];
-        //get workspace string name (given by user)
-        var userWorkspaceID = this.state.courses[param];
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                //get workspace key
+                var workspaceID = this.state.courseKeys[param];
+                //get workspace string name (given by user)
+                var userWorkspaceID = this.state.courses[param];
 
-        //remove workspace from main database workspaces
-        var path = `workspaces/`;
-        //console.log(path);
-        const ref = await firebase.database().ref(path);
-        //console.log("Removing overall workspace: " + ref.child(workspaceID));
-        ref.child(workspaceID).remove();
+                //remove workspace from main database workspaces
+                var path = `workspaces/`;
+                //console.log(path);
+                const ref = firebase.database().ref(path);
+                //console.log("Removing overall workspace: " + ref.child(workspaceID));
+                ref.child(workspaceID).remove();
 
-        //remove from workspace from user
-        var path2 = '/users/' + this.state.user + '/workspace/';
-        const ref2 = await firebase.database().ref(path2);
-        //console.log("Removing user workspace: " + ref.child(path2 +  userWorkspaceID));
-        ref2.child(userWorkspaceID).remove();
+                //remove from workspace from user
+                var path2 = '/users/' + user.uid + '/workspace/';
+                const ref2 = firebase.database().ref(path2);
+                //console.log("Removing user workspace: " + ref.child(path2 +  userWorkspaceID));
+                ref2.child(userWorkspaceID).remove();
 
-        console.log(param);
-        //Re render widgets on deletion  of widget.
-        //window.location.reload(); //Will change later.
+                console.log(param);
+                //Re render widgets on deletion  of widget.
+                //window.location.reload(); //Will change later.
+            }
+        });
     }
 
     componentWillMount(){
@@ -59,17 +65,50 @@ export class Settings extends Component {
             if (user) {
                 this.setState({user});
                 var userId = user.uid;
-                this.state.user = user.uid;
                 var getData = firebase.database().ref('/users/' + userId + '/workspace');
                 var temp = new Array();
                 getData.on('child_added', (snapshot, prevChildKey) => {
-                    console.log("snapshot:");
-                    console.log(snapshot.val());
                     console.log(snapshot.key);
-                    this.setState(prevState => ({
-                        courses : [...prevState.courses, snapshot.key],
-                        courseKeys: [...prevState.courseKeys, snapshot.val()]
-                    }));
+                    var name = snapshot.key;
+                    var key = snapshot.val();
+                    var workspaceData = firebase.database().ref('/workspaces/'+snapshot.val());
+                    workspaceData.once('value',(snapshot)=>{
+                        console.log(snapshot.val());
+                        if(snapshot.val()!=null) {
+                            var position = snapshot.val().position;
+                            this.setState(prevState => {
+                                var positionArray = prevState.position.slice();
+                                var courseArray = prevState.courses.slice();
+                                var courseKeyArray = prevState.courseKeys.slice();
+                                positionArray.push(position);
+                                courseArray.push(name);
+                                courseKeyArray.push(key);
+
+                                console.log(positionArray);
+                                for (var i = 0; i < positionArray.length - 1; i++) {
+                                    for (var j = i + 1; j < positionArray.length; j++) {
+                                        if (positionArray[i] > positionArray[j]) {
+                                            var temp1 = positionArray[i];
+                                            var temp2 = courseArray[i];
+                                            var temp3 = courseKeyArray[i];
+                                            positionArray[i] = positionArray[j];
+                                            courseArray[i] = courseArray[j];
+                                            courseKeyArray[i] = courseKeyArray[j];
+                                            positionArray[j] = temp1;
+                                            courseArray[j] = temp2;
+                                            courseKeyArray[j] = temp3;
+                                            console.log(positionArray);
+                                        }
+                                    }
+                                }
+                                return {
+                                    position: positionArray,
+                                    courses: courseArray,
+                                    courseKeys: courseKeyArray
+                                };
+                            });
+                        }
+                    });
                 });
             }
 
@@ -79,7 +118,6 @@ export class Settings extends Component {
     listenDelete(){
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                this.setState({user});
                 var userId = user.uid;
                 this.state.user = user.uid;
                 var getData = firebase.database().ref('/users/' + userId + '/workspace');
@@ -89,15 +127,19 @@ export class Settings extends Component {
                     console.log(snapshot.val());
                     console.log(snapshot.key);
                     var deletedCourse = snapshot.key;
-                    var deletedKey = snapshot.key;
+                    var deletedKey = snapshot.val();
                     var courseIndex = this.state.courses.indexOf(deletedCourse);
                     var keyIndex = this.state.courseKeys.indexOf(deletedKey);
+
                     this.setState(prevState => {
                         let newCourses = prevState.courses.slice();
                         let newKeys = prevState.courseKeys.slice();
+                        let newPosition = prevState.position.slice();
                         newCourses.splice(courseIndex,1);
                         newKeys.splice(keyIndex,1);
+                        newPosition.splice(courseIndex,1);
                         return {
+                            position : newPosition,
                             courses : newCourses,
                             courseKeys: newKeys
                         }
@@ -201,7 +243,7 @@ export class Settings extends Component {
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel
                                 </button>
-                                <button onClick={makeWorkspace} type="button" className="btn btn-primary" data-dismiss="modal">Save Course</button>
+                                <button onClick={Dashboard.makeWorkspace.bind(this,this.props)} type="button" className="btn btn-primary" data-dismiss="modal">Save Course</button>
                             </div>
                         </div>
                     </div>

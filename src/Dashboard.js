@@ -4,7 +4,7 @@ import './index.css';
 import logo from './res/images/Logo.png';
 import loadingGif from './res/images/loadingCircle.gif';
 import {Header, Widget1} from './Header';
-import {SideMenu, buttons} from "./SideMenu";
+import {SideMenu, last_position} from "./SideMenu";
 import {Settings} from "./Settings";
 import {Help} from "./Help.js";
 import {FIREBASE_CONFIG} from "./config";
@@ -17,29 +17,7 @@ import {
     Link
 } from 'react-router-dom'
 import FourYearPlan from "./CoursePlannerWidget/components/FourYearPlan";
-
-
-
-export function makeWorkspace() {
-    var course = document.getElementById("course").value;
-    if(course == ""){
-      return;
-    }
-    firebase.auth().onAuthStateChanged( user => {
-        if (user) {
-            const userReference = firebase.database().ref(`users/${user.uid}`);
-
-             var data = {
-                name:course,
-             }
-
-            var wid = firebase.database().ref('workspaces').push(data).getKey();
-
-            userReference.child("workspace").child(course).set(wid);
-        }
-        //window.location.reload();
-    });
-}
+import {defWorkspace} from "./defWorkspace";
 
 export class Dashboard extends Component {
 
@@ -56,6 +34,12 @@ export class Dashboard extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            user : null,
+            workspace : new Array()
+        };
+        console.log(this.state);
         //render splash screen only on dashbaord url load, will be taken away soon
         //ReactDOM.render(<div id="splash"><div className="splash-inside"><img className="splash-logo" src={logo}/><img className="splash-gif" src={loadingGif}/></div></div>, document.getElementById('splash-outer'));
 
@@ -95,7 +79,38 @@ export class Dashboard extends Component {
             ReactDOM.render(<Help name={courseName}></Help>, document.getElementById('bottom'));
         }
     }
+    static makeWorkspace() {
+        var course = document.getElementById("course").value;
+        if(course == ""){
+            return;
+        }
+        firebase.auth().onAuthStateChanged( (user) => {
+            if (user) {
+                const userReference = firebase.database().ref(`users/${user.uid}`);
 
+                var position = last_position + 1;
+                var widgets='';
+
+                var data = {
+                    'name':course,
+                    'position':position,
+                    'widgets':widgets
+                }
+
+
+                var wid = firebase.database().ref('workspaces').push(data).getKey();
+
+                userReference.child("workspace").child(course).set(wid);
+
+                var newWorkspace = defWorkspace(wid,course,position,widgets)
+                console.log(newWorkspace);
+                /*this.setState(prevState => ({
+                    workspace: [...prevState.workspace, newWorkspace]
+                }));*/
+            }
+            //window.location.reload();
+        });
+    }
 
     render(){
         return(
@@ -128,7 +143,7 @@ export class Dashboard extends Component {
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel
                                     </button>
-                                    <button onClick={makeWorkspace} type="button" className="btn btn-primary" data-dismiss="modal">Save Course</button>
+                                    <button onClick={this.makeWorkspace} type="button" className="btn btn-primary" data-dismiss="modal">Save Course</button>
                                 </div>
                             </div>
                         </div>

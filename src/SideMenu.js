@@ -17,8 +17,11 @@ import {
 } from 'react-router-dom'
 import {Homepage} from "./Homepage";
 import FourYearPlan from "./CoursePlannerWidget/components/FourYearPlan";
+import {defWorkspace} from "./defWorkspace";
 
 var courses = new Array();
+
+export var last_position = 0;
 
 function addWidget(param) {
     {/* This removes any widgets that may be from a different class */}
@@ -75,7 +78,8 @@ export class SideMenu extends Component {
         this.state ={
             user : null,
             courses : new Array(),
-            courseKeys : new Array()
+            courseKeys : new Array(),
+            position : new Array()
         };
     }
 
@@ -89,10 +93,49 @@ export class SideMenu extends Component {
                 var temp = new Array();
                 getData.on('child_added', (snapshot, prevChildKey) => {
                     console.log(snapshot.key);
-                    this.setState(prevState => ({
-                        courses : [...prevState.courses, snapshot.key],
-                        courseKeys: [...prevState.courseKeys, snapshot.val()]
-                    }));
+                    var name = snapshot.key;
+                    var key = snapshot.val();
+                    var workspaceData = firebase.database().ref('/workspaces/'+snapshot.val());
+                    workspaceData.once('value',(snapshot)=>{
+                        if(snapshot.val()!=null) {
+                            console.log(snapshot.val());
+                            var position = snapshot.val().position;
+                            this.setState(prevState => {
+                                var positionArray = prevState.position.slice();
+                                var courseArray = prevState.courses.slice();
+                                var courseKeyArray = prevState.courseKeys.slice();
+                                positionArray.push(position);
+                                courseArray.push(name);
+                                courseKeyArray.push(key);
+
+                                console.log(positionArray);
+                                for (var i = 0; i < positionArray.length - 1; i++) {
+                                    for (var j = i + 1; j < positionArray.length; j++) {
+                                        if (positionArray[i] > positionArray[j]) {
+                                            var temp1 = positionArray[i];
+                                            var temp2 = courseArray[i];
+                                            var temp3 = courseKeyArray[i];
+                                            positionArray[i] = positionArray[j];
+                                            courseArray[i] = courseArray[j];
+                                            courseKeyArray[i] = courseKeyArray[j];
+                                            positionArray[j] = temp1;
+                                            courseArray[j] = temp2;
+                                            courseKeyArray[j] = temp3;
+                                            console.log(positionArray);
+                                        }
+                                    }
+                                }
+                                return {
+                                    position: positionArray,
+                                    courses: courseArray,
+                                    courseKeys: courseKeyArray
+                                };
+                            });
+                            if (last_position < position) {
+                                last_position = position;
+                            }
+                        }
+                    });
                 });
             }
 
@@ -118,9 +161,12 @@ export class SideMenu extends Component {
                     this.setState(prevState => {
                         let newCourses = prevState.courses.slice();
                         let newKeys = prevState.courseKeys.slice();
+                        let newPosition = prevState.position.slice();
                         newCourses.splice(courseIndex,1);
                         newKeys.splice(keyIndex,1);
+                        newPosition.splice(courseIndex,1);
                         return {
+                            position : newPosition,
                             courses : newCourses,
                             courseKeys: newKeys
                         }

@@ -12,7 +12,7 @@ import {
     Link,
     NavLink
 } from 'react-router-dom'
-import {makeWorkspace} from "./Dashboard";
+import {Dashboard,makeWorkspace} from "./Dashboard";
 
 
 export class Help extends Component {
@@ -64,7 +64,7 @@ export class Help extends Component {
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel
                                     </button>
-                                    <button onClick={makeWorkspace} type="button" className="btn btn-primary" data-dismiss="modal">Save Course</button>
+                                    <button onClick={Dashboard.makeWorkspace} type="button" className="btn btn-primary" data-dismiss="modal">Save Course</button>
                                 </div>
                             </div>
                         </div>
