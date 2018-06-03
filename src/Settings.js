@@ -174,7 +174,7 @@ export class Settings extends Component {
 
                                     </div>
 
-                                    <div><h4>Change App Background Color</h4></div>
+
 
                                 </div>
                             </div>
