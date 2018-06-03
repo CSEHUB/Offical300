@@ -26,6 +26,7 @@ var urls;
 var widgetAdd;
 var uid;
 var dropDown;
+var courses = [];
 
 var json = '{"user": [{}],website }';
 
@@ -50,6 +51,8 @@ class Widget extends Component {
     constructor(name) {
         super();
         courseName = name;
+
+        this.GradeSourceCourses();
 
         this.state = {
             urls: new Array(),
@@ -194,9 +197,26 @@ class Widget extends Component {
         this.getWid();
     }
 
+    async GradeSourceCourses(){
+        return firebase.database().ref('/GradeSource').once('value').then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+
+                var courseName = childSnapshot.key;
+                courses.push(courseName);
+
+            });
+        });
+    }
+
     GradeSource() {
         var webURL = document.getElementById("GSURL").value;
         var secretNum = document.getElementById("secretNum").value;
+        var course = document.getElementById("gsCourse").value;
+
+        //Get firebase data Overall grade, rank
+        var ref = firebase.database().ref('/GradeSource/' + course + '/' + secretNum);
+
+        //alert(ref.val());
 
         //Make sure url is lowercase for comparisons
         webURL = webURL.toLowerCase();
@@ -468,8 +488,6 @@ class Widget extends Component {
                         <div key={Index} className="modal fade" id={this.state.widgetID[Index]} tabIndex="-1" role="dialog"
                              aria-labelledby={this.state.widgetID[Index]}  aria-hidden="true">
 
-
-
                                         <If condition={this.state.website[Index] == 'GradeScope'}>
                                             <Then>
                                                 <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
@@ -486,7 +504,7 @@ class Widget extends Component {
                                                 <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
                                                     <div className="modal-content widget-modal-h">
                                                         <div className="modal-body widget-modal-h">
-                                                <iframe scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/235259/Celeste/index.html" style={{border: '0px none', marginLeft: '0px', height: 565, marginTop: 0, width: 570}}/>
+                                                <iframe sandbox="allow-scripts" scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/235259/Celeste/index.html" style={{border: '0px none', marginLeft: '0px', height: 565, marginTop: 0, width: 570}}/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -496,7 +514,7 @@ class Widget extends Component {
                                                 <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
                                                     <div className="modal-content widget-modal-h">
                                                         <div className="modal-body widget-modal-h">
-                                                <iframe scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/394002/picoracer/index.html" style={{border: '0px none', marginLeft: 0, height: 650, marginTop: 0, width: 575}}/>
+                                                <iframe sandbox="allow-scripts" scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/394002/picoracer/index.html" style={{border: '0px none', marginLeft: 0, height: 650, marginTop: 0, width: 575}}/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -506,7 +524,7 @@ class Widget extends Component {
                                                 <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
                                                     <div className="modal-content widget-modal-h">
                                                         <div className="modal-body widget-modal-h">
-                                                            <iframe scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/524861/index.html" allowFullScreen style={{border: '0px none', marginLeft: 0, height: 650, marginTop: 0, width: 575}}/>
+                                                            <iframe sandbox="allow-scripts" scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/524861/index.html" allowFullScreen style={{border: '0px none', marginLeft: 0, height: 650, marginTop: 0, width: 575}}/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -588,6 +606,11 @@ class Widget extends Component {
                                             <input id="GSURL" type="text" className="form-control" placeholder="http://www.gradesource.com/reports/7/29889/index.html"/>
                                             <label htmlFor="exampleFormControlInput1">Secret Number: </label>
                                             <input id="secretNum" type="text" className="form-control" placeholder="4320"/>
+                                                <select className="form-control" id="widgetType" onChange={Widget.dragDownForm} value={this.state.value}>
+                                                {courses.map((course, index) => {
+                                                    return (<option id="gsCourse" value={course}>{course}</option>)
+                                                })}
+                                                </select>
                                             </div>
                                         </div>
                                     </form>
