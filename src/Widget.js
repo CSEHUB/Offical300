@@ -14,6 +14,7 @@ import picoLogo from './res/images/picoracer.png'
 import flappyBeeLogo from './res/images/flappyBee.png'
 import pacmanLogo from './res/images/Pacman_logo.png'
 import defaultWidget from './res/images/defaultWidget.png'
+import pdfLogo from './res/images/pdfLogo.png'
 
 import { If, Then, ElseIf, Else } from 'react-if-elseif-else-render';
 import ReactDOM from "react-dom";
@@ -205,14 +206,14 @@ class Widget extends Component {
         else if (webURL.indexOf('podcast') !== -1) {
             courseType = "Podcast";
         }
+        else if(origURL.indexOf('.pdf') != -1){
+            courseType = "pdf";
+            origURL = origURL + "#zoom=100";
+        }
         else {
             courseType = "Other";
         }
 
-        //if pdf, chrome can load it 100%
-        if (origURL.indexOf('.pdf') != 0) {
-            origURL = origURL + "#zoom=100";
-        }
 
         //Check if "http://" is at begin if not add it
         if (origURL.indexOf('http') != 0) {
@@ -488,6 +489,19 @@ class Widget extends Component {
                                 </ElseIf>
 
 
+                                {/* If pdf */}
+                                <ElseIf condition={this.state.website[arrayIndex] == 'pdf'}>
+                                    <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12  w-container-out">
+                                        <div className="w-top">
+                                            <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                        </div>
+                                        <div id="e" draggable="true" className="w-container" data-toggle="modal"
+                                             data-target={'#' + this.state.widgetID[arrayIndex]}>
+                                            <img className="widgetLogo pdfLogo" src={pdfLogo}/>
+                                        </div>
+                                    </div>
+
+                                </ElseIf>
 
                                 {/* If Other website, just show CSEHUB default */}
                                 <ElseIf condition={this.state.website[arrayIndex] == 'Other'}>
@@ -626,6 +640,7 @@ class Widget extends Component {
                                                     </div>
                                                 </div>
                                             </ElseIf>
+
 
                                             <Else>
                                                 <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
