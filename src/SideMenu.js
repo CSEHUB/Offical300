@@ -74,11 +74,13 @@ export class SideMenu extends Component {
         super(props);
         this.state ={
             user : null,
-            courses : new Array()
+            courses : new Array(),
+            courseKeys : new Array()
         };
     }
 
     componentWillMount(){
+        this.listenDelete();
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.setState({user});
@@ -88,11 +90,43 @@ export class SideMenu extends Component {
                 getData.on('child_added', (snapshot, prevChildKey) => {
                     console.log(snapshot.key);
                     this.setState(prevState => ({
-                      courses : [...prevState.courses, snapshot.key]
+                        courses : [...prevState.courses, snapshot.key],
+                        courseKeys: [...prevState.courseKeys, snapshot.val()]
                     }));
                 });
             }
 
+        });
+    }
+
+    listenDelete(){
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({user});
+                var userId = user.uid;
+                this.state.user = user.uid;
+                var getData = firebase.database().ref('/users/' + userId + '/workspace');
+                var temp = new Array();
+                getData.on("child_removed", (snapshot) => {
+                    console.log("snapshot:");
+                    console.log(snapshot.val());
+                    console.log(snapshot.key);
+                    var deletedCourse = snapshot.key;
+                    var deletedKey = snapshot.key;
+                    var courseIndex = this.state.courses.indexOf(deletedCourse);
+                    var keyIndex = this.state.courseKeys.indexOf(deletedKey);
+                    this.setState(prevState => {
+                        let newCourses = prevState.courses.slice();
+                        let newKeys = prevState.courseKeys.slice();
+                        newCourses.splice(courseIndex,1);
+                        newKeys.splice(keyIndex,1);
+                        return {
+                            courses : newCourses,
+                            courseKeys: newKeys
+                        }
+                    });
+                });
+            }
         });
     }
 

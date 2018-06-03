@@ -12,6 +12,7 @@ import {
     Link,
     NavLink
 } from 'react-router-dom'
+
 import {makeWorkspace} from "./Dashboard";
 
 
@@ -47,11 +48,13 @@ export class Settings extends Component {
         //console.log("Removing user workspace: " + ref.child(path2 +  userWorkspaceID));
         ref2.child(userWorkspaceID).remove();
 
+        console.log(param);
         //Re render widgets on deletion  of widget.
-        window.location.reload(); //Will change later.
+        //window.location.reload(); //Will change later.
     }
 
     componentWillMount(){
+        this.listenDelete();
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.setState({user});
@@ -73,6 +76,36 @@ export class Settings extends Component {
         });
     }
 
+    listenDelete(){
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({user});
+                var userId = user.uid;
+                this.state.user = user.uid;
+                var getData = firebase.database().ref('/users/' + userId + '/workspace');
+                var temp = new Array();
+                getData.on("child_removed", (snapshot) => {
+                    console.log("snapshot:");
+                    console.log(snapshot.val());
+                    console.log(snapshot.key);
+                    var deletedCourse = snapshot.key;
+                    var deletedKey = snapshot.key;
+                    var courseIndex = this.state.courses.indexOf(deletedCourse);
+                    var keyIndex = this.state.courseKeys.indexOf(deletedKey);
+                    this.setState(prevState => {
+                        let newCourses = prevState.courses.slice();
+                        let newKeys = prevState.courseKeys.slice();
+                        newCourses.splice(courseIndex,1);
+                        newKeys.splice(keyIndex,1);
+                        return {
+                            courses : newCourses,
+                            courseKeys: newKeys
+                        }
+                    });
+                });
+            }
+        });
+    }
 
     render(){
         return(
