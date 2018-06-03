@@ -25,7 +25,6 @@ export default class CourseList extends React.Component {
         var ref = this.props.db.database().ref('/Cape_2017/' + course);
 
         ref.on("value", (function(snapshot) {
-            alert(snapshot.value);
 
             // Check whether course is offered in quarter specified
             if (!snapshot.hasChild(quarter)) {
