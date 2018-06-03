@@ -116,7 +116,8 @@ class Widget extends Component {
     getWid() {
         //Lets prep firebase for update.
         firebase.auth().onAuthStateChanged( user => {
-            if (user) {
+            if (user!=null&&courseName!="") {
+                console.log(courseName);
                 var path = `users/${user.uid}/workspace/` + courseName;
                 const userCoursenameReference = firebase.database().ref(path);
 
