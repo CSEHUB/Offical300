@@ -352,6 +352,11 @@ button.close:focus {
     width: 43%;
     padding-top: 65px;
 }
+
+.pacman-iframe{
+    min-height: 400px;
+}
+
 .beeScale {
 }
 

@@ -184,7 +184,9 @@ export class SideMenu extends Component {
                         <ul className="menu-side-list">
                             {/* Logo portion of Nav, to match sidebar */}
                                 <div className="logo">
+                                    <a href="./">
                                     <img id="Logo" src={logo}/>
+                                    </a>
                                 </div>
                             <li className="menu-main-item"><div className="menu-icons"><i className="fas fa-th-large"></i></div>Workspaces <div className="addWorkspace ml-auto" data-toggle="modal" data-target="#modal-addWebsite">+</div></li>
                             {/* Button trigger modal */}

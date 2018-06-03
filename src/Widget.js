@@ -12,6 +12,7 @@ import podcastLogo from './res/images/podcast.png'
 import celesteLogo from './res/images/celeste.png'
 import picoLogo from './res/images/picoracer.png'
 import flappyBeeLogo from './res/images/flappyBee.png'
+import pacmanLogo from './res/images/Pacman_logo.png'
 import defaultWidget from './res/images/defaultWidget.png'
 
 import { If, Then, ElseIf, Else } from 'react-if-elseif-else-render';
@@ -346,6 +347,7 @@ class Widget extends Component {
                 "         <select class=\"form-control\" id=\"Game\" value={this.state.value}>\n" +
                 "         <option value=\"Celeste\">Celeste</option>\n" +
                 "         <option value=\"Pico-Racer\">Pico-Racer</option>\n" +
+                "         <option value=\"pacman\">Pacman</option>\n" +
                 "         <option value=\"Bee\">Flappy Flock: Collect The Birds</option>\n" +
                 "         </select>\n" +
                 "          </div>"
@@ -520,6 +522,20 @@ class Widget extends Component {
 
                                 </ElseIf>
 
+                                {/* If pacman */}
+                                <ElseIf condition={this.state.website[arrayIndex] == 'pacman'}>
+                                    <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12  w-container-out">
+                                        <div className="w-top">
+                                            <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                        </div>
+                                        <div id="e" draggable="true" className="w-container" data-toggle="modal"
+                                             data-target={'#' + this.state.widgetID[arrayIndex]}>
+                                            <img className="widgetLogo" src={pacmanLogo}/>
+                                        </div>
+                                    </div>
+
+                                </ElseIf>
+
                             </If>
 
 
@@ -577,6 +593,16 @@ class Widget extends Component {
                                                     </div>
                                             </ElseIf>
 
+                                            <ElseIf condition={this.state.website[Index] == 'pacman'}>
+                                                <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
+                                                    <div className="modal-content widget-modal-h">
+                                                        <div className="modal-body widget-modal-h">
+                                                            <iframe className="modal-full pacman-iframe" frameBorder="0" allow="encrypted-media" src="https://macek.github.io/google_pacman/"></iframe>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ElseIf>
+
                                             <Else>
                                                 <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
                                                     <div className="modal-content widget-modal-h">
@@ -587,6 +613,8 @@ class Widget extends Component {
                                                     </div>
                                                 </div>
                                             </Else>
+
+
                                         </If>
                         </div>
                     )
