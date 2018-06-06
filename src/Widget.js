@@ -407,6 +407,7 @@ class Widget extends Component {
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 w-container-out">
                                         <div className="w-top">
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                            <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
@@ -420,6 +421,7 @@ class Widget extends Component {
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 w-container-out">
                                         <div className="w-top">
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                            <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
@@ -437,6 +439,7 @@ class Widget extends Component {
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 w-container-out">
                                         <div className="w-top">
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                            <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
@@ -451,6 +454,7 @@ class Widget extends Component {
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 w-container-out">
                                         <div className="w-top">
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                            <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
@@ -466,6 +470,7 @@ class Widget extends Component {
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12  w-container-out">
                                         <div className="w-top">
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                            <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
@@ -480,6 +485,7 @@ class Widget extends Component {
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 w-container-out">
                                         <div className="w-top">
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                            <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
@@ -495,6 +501,7 @@ class Widget extends Component {
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12  w-container-out">
                                         <div className="w-top">
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                            <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
@@ -509,6 +516,7 @@ class Widget extends Component {
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12  w-container-out">
                                         <div className="w-top">
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                            <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
@@ -524,6 +532,7 @@ class Widget extends Component {
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12  w-container-out">
                                         <div className="w-top">
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                            <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
@@ -538,6 +547,7 @@ class Widget extends Component {
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12  w-container-out">
                                         <div className="w-top">
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                            <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
@@ -552,6 +562,7 @@ class Widget extends Component {
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12  w-container-out">
                                         <div className="w-top">
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                            <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
@@ -566,6 +577,7 @@ class Widget extends Component {
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12  w-container-out">
                                         <div className="w-top">
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
+                                            <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
@@ -685,7 +697,7 @@ class Widget extends Component {
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel
                                 </button>
-                                <button onClick={Dashboard.makeWorkspace} type="button" className="btn btn-primary" data-dismiss="modal">Save Course</button>
+                                <button onClick={Dashboard.makeWorkspace} type="button" className="btn btn-primary" data-dismiss="modal">Save Workspace</button>
                             </div>
                         </div>
                     </div>
