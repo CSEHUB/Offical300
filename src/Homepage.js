@@ -114,7 +114,7 @@ export const Homepage = () => {
                         <div className="col-md-3">
                             <img className="profilePhoto" src={mahibProfileImg}/>
                             <h4>Mahib Hosain</h4>
-                            <h5>Software Analyst</h5>
+                            <h5>Software Architect</h5>
                         </div>
                     </div>
 
