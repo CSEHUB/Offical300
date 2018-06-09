@@ -171,11 +171,6 @@ class Widget extends Component {
         });
 
 
-
-        //Update widget with values
-        //this.setState({gsGrade: this.state.gsGrade.concat(grade)});
-        //this.setState({gsRank: this.state.gsRank.concat(rank)});
-
         //Update widget with values
         var array = this.state.gsGrade;
         array[index] = grade;
@@ -354,14 +349,15 @@ class Widget extends Component {
         var sourceGrade = "http://www.sourcegrade.xyz/grades?id=" + secretGS + "&url=" + webURL;
         */
 
-        //Get grade and rank
-        var db = "/GradeSource/" + course + "/" + secretGS;
-        this.getGradeSourceInfo(db, this.state.website.length);
-
         var index = this.state.website.length;
 
+        //Get grade and rank
+        var db = "/GradeSource/" + course + "/" + secretGS;
+        this.getGradeSourceInfo(db, index);
+
+
         //Get course url from database:
-        db = "/GradeSource/" + urls + "/URL";
+        db = "/GradeSource/" + course + "/URL";
 
         this.getGradeSourceURL(db, index);
 
