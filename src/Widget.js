@@ -158,12 +158,19 @@ class Widget extends Component {
 
         //Get rank and grade
        await firebase.database().ref(param).once('value').then(function (snapshot) {
-                grade = "Overall Grade: " + snapshot.val().Grade;
-                rank = "Rank: " + snapshot.val().Rank;
+           try {
+               grade = "Overall Grade: " + snapshot.val().Grade;
+               rank = "Rank: " + snapshot.val().Rank;
+
+               //Fixes formatting by removing spaces inbetween data in string
+               grade = grade.split('．').join('.');
+           }
+           catch(error) {
+               console.error(error);
+           }
         });
 
-       //Fixes formatting by removing spaces inbetween data in string
-        grade = grade.split('．').join('.');
+
 
         //Update widget with values
         //this.setState({gsGrade: this.state.gsGrade.concat(grade)});
@@ -506,7 +513,7 @@ class Widget extends Component {
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo" src={gradesourceLogo}/>
                                             <br/>
-                                            <center>{this.state.gsGrade[arrayIndex] + arrayIndex}</center>
+                                            <center>{this.state.gsGrade[arrayIndex]}</center>
                                             <center>{this.state.gsRank[arrayIndex]}</center>
                                         </div>
                                     </div>
@@ -556,7 +563,6 @@ class Widget extends Component {
                                             <img className="widgetLogo" src={autograderLogo}/>
                                         </div>
                                     </div>
-
                                 </ElseIf>
 
                                 {/* If podcast, just show logo */}
@@ -571,9 +577,7 @@ class Widget extends Component {
                                             <img className="widgetLogo podcast-logo" src={podcastLogo}/>
                                         </div>
                                     </div>
-
                                 </ElseIf>
-
 
                                 {/* If pdf */}
                                 <ElseIf condition={this.state.website[arrayIndex] == 'pdf'}>
@@ -602,7 +606,7 @@ class Widget extends Component {
                                             <img className="widgetLogo defaultWidget" src={defaultWidget}/>
                                             <br/>
                                             {/*<center className="urlWrap">{this.state.urls[arrayIndex]}</center>*/}
-                                            <center>{this.state.gsGrade[arrayIndex] + arrayIndex}</center>
+                                            <center>{this.state.gsGrade[arrayIndex]}</center>
                                             <center>{this.state.gsRank[arrayIndex]}</center>
                                         </div>
                                     </div>
