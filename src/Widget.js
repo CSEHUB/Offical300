@@ -161,8 +161,28 @@ class Widget extends Component {
 
     }
 
-    async getWidgets() {
-        await firebase.auth().onAuthStateChanged(user => {
+    async getGradeSourceURL(param, index) {
+        var webURL;
+
+        //Get gradesource url
+        await firebase.database().ref(param).once('value').then(function (snapshot) {
+            webURL = snapshot.val();
+            //Format url by removing spaces
+
+        });
+
+        webURL = webURL.split('．').join('.');
+        webURL = webURL.split('／').join('/');
+
+        //Update widget with values
+        var array = this.state.urls;
+        array[index] = webURL;
+        this.setState({urls: array});
+
+    }
+
+    getWidgets() {
+        firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 var path = `workspaces/` + wid + '/widgets';
                 const getWidgets = firebase.database().ref(path);
@@ -173,17 +193,21 @@ class Widget extends Component {
                         urls = childSnapshot.val().url;
                         secretGS = childSnapshot.val().secretNum;
                         uid = childSnapshot.key;
-
-                        var grade;
-                        var rank;
+                        var index = this.state.website.length;
 
                         //Get grade and rank
                         var db = "/GradeSource/" + urls + "/" + secretGS;
 
                         if (website == "Visual") {
+                            //Get grades and rank
                             this.getGradeSourceInfo(db);
-                        }
 
+                            //Get course url from database:
+                            var db = "/GradeSource/" + urls + "/URL";
+
+                            this.getGradeSourceURL(db, index);
+
+                        }
 
                         //Update local widgets.
                         this.setState({website: this.state.website.concat(website)});
@@ -287,15 +311,8 @@ class Widget extends Component {
             webURL = webURL.split('．').join('.');
             webURL = webURL.split('／').join('/');
 
-            alert(webURL);
-
+            //alert(webURL);
         });
-
-
-        //Update widget with values
-        this.setState({gsGrade: this.state.gsGrade.concat(grade)});
-        this.setState({gsRank: this.state.gsRank.concat(rank)});
-
 
         /*
         Hope to add this when same origin is worked around.
@@ -312,14 +329,9 @@ class Widget extends Component {
         var sourceGrade = "http://www.sourcegrade.xyz/grades?id=" + secretGS + "&url=" + webURL;
         */
 
-        var grade;
-        var rank;
-
         //Get grade and rank
         db = "/GradeSource/" + course + "/" + secretGS;
-
         this.getGradeSourceInfo(db);
-
 
         //Update local widgets.
         this.setState({ website: this.state.website.concat("Visual") });
@@ -336,6 +348,7 @@ class Widget extends Component {
 
         //Lets prep firebase for update and then update.
         this.getWid();
+
     }
 
     Game() {
