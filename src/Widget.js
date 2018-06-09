@@ -61,7 +61,8 @@ class Widget extends Component {
             uid: new Array(),
             secretNum: new Array(),
             gsGrade: new Array(),
-            gsRank: new Array()
+            gsRank: new Array(),
+            gsURL: new Array()
         }
         this.setState({gsGrade: this.state.gsGrade.concat("shane")});
 
@@ -175,9 +176,9 @@ class Widget extends Component {
         webURL = webURL.split('／').join('/');
 
         //Update widget with values
-        var array = this.state.urls;
+        var array = this.state.gsURL;
         array[index] = webURL;
-        this.setState({urls: array});
+        this.setState({gsURL: array});
 
     }
 
@@ -193,7 +194,7 @@ class Widget extends Component {
                         urls = childSnapshot.val().url;
                         secretGS = childSnapshot.val().secretNum;
                         uid = childSnapshot.key;
-                        var index = this.state.website.length +1;
+                        var index = this.state.website.length;
 
                         //Get grade and rank
                         var db = "/GradeSource/" + urls + "/" + secretGS;
@@ -220,6 +221,7 @@ class Widget extends Component {
                             //Update with phony vals since not used
                             this.setState({gsGrade: this.state.gsGrade.concat(0)});
                             this.setState({gsRank: this.state.gsRank.concat(0)});
+                            this.setState({gsURL: this.state.gsURL.concat("http://www.piazza.com")});
                         }
 
                         //Increase ID num for nexr widget. (for iframe display)
@@ -285,6 +287,7 @@ class Widget extends Component {
         //Update local widgets.
         this.setState({ website: this.state.website.concat(courseType) });
         this.setState({ urls: this.state.urls.concat(origURL) });
+        this.setState({ gsURL: this.state.gsURL.concat(origURL) });
         this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
         this.setState({ secretNum: this.state.secretNum.concat(0) });
         this.setState({ gsGrade: this.state.gsGrade.concat(0) });
@@ -331,6 +334,7 @@ class Widget extends Component {
         this.setState({ urls: this.state.urls.concat(course) }); //Can get url from course
         this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
         this.setState({ secretNum: this.state.secretNum.concat(secretGS) });
+        this.setState({gsURL: this.state.gsURL.concat("http://www.piazza.com")});
 
         //Update variables to be pushed.
         website = "Visual";
@@ -456,7 +460,7 @@ class Widget extends Component {
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 w-container-out">
                                         <div className="w-top">
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
-                                            <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
+                                            <div className="w-top-r"><a href={this.state.gsURL[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
@@ -675,6 +679,17 @@ class Widget extends Component {
                                                     </div>
                                                 </div>
                                              </ElseIf>
+
+                                            <ElseIf condition={this.state.website[Index] == 'Visual'}>
+                                                <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
+                                                    <div className="modal-content widget-modal-h">
+                                                        <div className="modal-body widget-modal-h">
+                                                            <iframe className="modal-full" src={this.state.gsURL[Index]}
+                                                                    frameBorder="0" allow="autoplay; encrypted-media"></iframe>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ElseIf>
 
                                             <ElseIf condition={this.state.website[Index] == 'Pico-Racer'}>
                                                 <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
