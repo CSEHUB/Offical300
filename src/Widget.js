@@ -145,30 +145,21 @@ class Widget extends Component {
         });
     }
 
-    test(param) {
+    async test(param) {
         var grade;
         var rank;
+
         //Get rank and grade
-       firebase.database().ref(param).once('value').then(function (snapshot) {
-            try {
+       await firebase.database().ref(param).once('value').then(function (snapshot) {
                 grade = "Overall Grade: " + snapshot.val().Grade;
                 rank = "Rank:" + snapshot.val().Rank;
 
-                //Update widget with values
-                this.setState({gsGrade: this.state.gsGrade.concat("shane")});
-                this.setState({gsRank: this.state.gsRank.concat("jsjj")});
-
-            }
-            catch (error) {
-                console.error(error);
-            }
         });
 
-        return new Promise(resolve => {
-            setTimeout(() => {
-                resolve('resolved');
-            }, 2000);
-        });
+        //Update widget with values
+        this.setState({gsGrade: this.state.gsGrade.concat(grade)});
+        this.setState({gsRank: this.state.gsRank.concat(rank)});
+
     }
 
     async getWidgets() {
@@ -199,7 +190,6 @@ class Widget extends Component {
                         this.setState({widgetID: this.state.widgetID.concat(widgetNum)});
                         this.setState({uid: this.state.uid.concat(uid)});
                         this.setState({secretNum: this.state.secretNum.concat(secretGS)});
-
 
 
                         //Increase ID num for nexr widget. (for iframe display)
@@ -297,18 +287,6 @@ class Widget extends Component {
         var webURL = "http://www.gradesource.com/reports/7/29889/index.html"//document.getElementById("GSURL").value;
         secretGS = document.getElementById("secretNum").value;
         var course = document.getElementById("gsCourseName").value;
-
-        //Get firebase data Overall grade, rank
-        firebase.database().ref("/GradeSource/" + course + "/" + secretGS).once('value').then(function(snapshot) {
-            try {
-                //this.setState({gsGrade: "Overall Grade: " + snapshot.val().Grade});
-                //this.setState({gsRank: "Rank:" + snapshot.val().Rank});
-
-            }
-            catch(error) {
-                console.error(error);
-            }
-        });
 
         //Make sure url is lowercase for comparisons
         webURL = webURL.toLowerCase();
@@ -478,7 +456,6 @@ class Widget extends Component {
                                             <br/>
                                             <center>{this.state.gsGrade[arrayIndex]}</center>
                                             <center>{this.state.gsRank[arrayIndex]}</center>
-                                            <center>test</center>
                                         </div>
                                     </div>
                                 </ElseIf>
