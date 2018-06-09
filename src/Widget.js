@@ -193,7 +193,7 @@ class Widget extends Component {
                         urls = childSnapshot.val().url;
                         secretGS = childSnapshot.val().secretNum;
                         uid = childSnapshot.key;
-                        var index = this.state.website.length;
+                        var index = this.state.website.length +1;
 
                         //Get grade and rank
                         var db = "/GradeSource/" + urls + "/" + secretGS;
@@ -216,6 +216,11 @@ class Widget extends Component {
                         this.setState({uid: this.state.uid.concat(uid)});
                         this.setState({secretNum: this.state.secretNum.concat(secretGS)});
 
+                        if (website !== "Visual") {
+                            //Update with phony vals since not used
+                            this.setState({gsGrade: this.state.gsGrade.concat(0)});
+                            this.setState({gsRank: this.state.gsRank.concat(0)});
+                        }
 
                         //Increase ID num for nexr widget. (for iframe display)
                         widgetNum++;
@@ -301,18 +306,6 @@ class Widget extends Component {
         secretGS = document.getElementById("secretNum").value;
         var course = document.getElementById("gsCourseName").value;
 
-        //Get course url from database:
-        var db = "/GradeSource/" + course + "/URL";
-
-        //Get gradesource url
-        firebase.database().ref(db).once('value').then(function (snapshot) {
-            webURL = snapshot.val();
-            //Format url by removing spaces
-            webURL = webURL.split('．').join('.');
-            webURL = webURL.split('／').join('/');
-
-            //alert(webURL);
-        });
 
         /*
         Hope to add this when same origin is worked around.
@@ -330,7 +323,7 @@ class Widget extends Component {
         */
 
         //Get grade and rank
-        db = "/GradeSource/" + course + "/" + secretGS;
+        var db = "/GradeSource/" + course + "/" + secretGS;
         this.getGradeSourceInfo(db);
 
         //Update local widgets.
@@ -577,6 +570,8 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo defaultWidget" src={defaultWidget}/>
+                                            <br/>
+                                            <center>{this.state.urls[arrayIndex]}</center>
                                         </div>
                                     </div>
 
