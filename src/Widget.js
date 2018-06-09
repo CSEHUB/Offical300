@@ -64,7 +64,6 @@ class Widget extends Component {
             gsRank: new Array(),
             gsURL: new Array()
         }
-        this.setState({gsGrade: this.state.gsGrade.concat("shane")});
 
         this.makeWidget = this.makeWidget.bind(this);
 
@@ -153,7 +152,7 @@ class Widget extends Component {
         });
     }
 
-    async getGradeSourceInfo(param) {
+    async getGradeSourceInfo(param, index) {
         var grade;
         var rank;
 
@@ -167,8 +166,20 @@ class Widget extends Component {
         grade = grade.split('．').join('.');
 
         //Update widget with values
-        this.setState({gsGrade: this.state.gsGrade.concat(grade)});
-        this.setState({gsRank: this.state.gsRank.concat(rank)});
+        //this.setState({gsGrade: this.state.gsGrade.concat(grade)});
+        //this.setState({gsRank: this.state.gsRank.concat(rank)});
+
+        //Update widget with values
+        var array = this.state.gsGrade;
+        array[index] = grade;
+        this.setState({gsGrade: array});
+
+
+        //Update widget with values
+        array = this.state.gsRank;
+        array[index] = rank;
+        this.setState({gsRank: array});
+
 
     }
 
@@ -178,13 +189,13 @@ class Widget extends Component {
         //Get gradesource url
         await firebase.database().ref(param).once('value').then(function (snapshot) {
             webURL = snapshot.val();
-            //Format url by removing spaces
-
         });
 
-        webURL = webURL.split('．').join('.');
-        webURL = webURL.split('／').join('/');
-
+        if(webURL){
+            //Format url by removing spaces
+            webURL = webURL.split('．').join('.');
+            webURL = webURL.split('／').join('/');
+        }
         //Update widget with values
         var array = this.state.gsURL;
         array[index] = webURL;
@@ -204,6 +215,7 @@ class Widget extends Component {
                         urls = childSnapshot.val().url;
                         secretGS = childSnapshot.val().secretNum;
                         uid = childSnapshot.key;
+
                         var index = this.state.website.length;
 
                         //Get grade and rank
@@ -211,7 +223,7 @@ class Widget extends Component {
 
                         if (website == "Visual") {
                             //Get grades and rank
-                            this.getGradeSourceInfo(db);
+                            this.getGradeSourceInfo(db, index);
 
                             //Get course url from database:
                             var db = "/GradeSource/" + urls + "/URL";
@@ -231,7 +243,7 @@ class Widget extends Component {
                             //Update with phony vals since not used
                             this.setState({gsGrade: this.state.gsGrade.concat(0)});
                             this.setState({gsRank: this.state.gsRank.concat(0)});
-                            this.setState({gsURL: this.state.gsURL.concat("http://www.piazza.com")});
+                            this.setState({gsURL: this.state.gsURL.concat(".")});
                         }
 
                         //Increase ID num for nexr widget. (for iframe display)
@@ -337,7 +349,7 @@ class Widget extends Component {
 
         //Get grade and rank
         var db = "/GradeSource/" + course + "/" + secretGS;
-        this.getGradeSourceInfo(db);
+        this.getGradeSourceInfo(db, this.state.website.length);
 
         var index = this.state.website.length;
 
@@ -494,7 +506,7 @@ class Widget extends Component {
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo" src={gradesourceLogo}/>
                                             <br/>
-                                            <center>{this.state.gsGrade[arrayIndex]}</center>
+                                            <center>{this.state.gsGrade[arrayIndex] + arrayIndex}</center>
                                             <center>{this.state.gsRank[arrayIndex]}</center>
                                         </div>
                                     </div>
@@ -589,7 +601,9 @@ class Widget extends Component {
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo defaultWidget" src={defaultWidget}/>
                                             <br/>
-                                            <center>{this.state.urls[arrayIndex]}</center>
+                                            {/*<center className="urlWrap">{this.state.urls[arrayIndex]}</center>*/}
+                                            <center>{this.state.gsGrade[arrayIndex] + arrayIndex}</center>
+                                            <center>{this.state.gsRank[arrayIndex]}</center>
                                         </div>
                                     </div>
 
