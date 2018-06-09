@@ -29,7 +29,7 @@ var uid;
 var dropDown;
 var module = require('./courses');
 var courses = module.courses;
-var secretGS;
+var secretGS = 0;
 var GScourse;
 
 var json = '{"user": [{}],website }';
@@ -134,7 +134,7 @@ class Widget extends Component {
                         if(Boolean(widgetAdd)) {
                             var x = uploadWidget();
                             this.setState({ uid: this.state.uid.concat(x) });
-                        }
+                            }
                         else {
                             this.getWidgets(); //Must call outside function to finish widget render because of asynchronous.
                         }
@@ -163,8 +163,7 @@ class Widget extends Component {
     }
 
     async getWidgets() {
-
-        firebase.auth().onAuthStateChanged(user => {
+        await firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 var path = `workspaces/` + wid + '/widgets';
                 const getWidgets = firebase.database().ref(path);
@@ -178,6 +177,7 @@ class Widget extends Component {
                         var grade;
                         var rank;
 
+                        //Get grade and rank
                         var db = "/GradeSource/" + urls + "/" + secretGS;
 
                         if (website == "Visual") {
@@ -190,7 +190,6 @@ class Widget extends Component {
                         this.setState({widgetID: this.state.widgetID.concat(widgetNum)});
                         this.setState({uid: this.state.uid.concat(uid)});
                         this.setState({secretNum: this.state.secretNum.concat(secretGS)});
-
 
                         //Increase ID num for nexr widget. (for iframe display)
                         widgetNum++;
@@ -256,9 +255,9 @@ class Widget extends Component {
         this.setState({ website: this.state.website.concat(courseType) });
         this.setState({ urls: this.state.urls.concat(origURL) });
         this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
-        this.setState({ secretNum: this.state.secretNum.concat(-1) });
-        this.setState({ gsGrade: this.state.gsGrade.concat(-1) });
-        this.setState({ gsRank: this.state.gsRank.concat(-1) });
+        this.setState({ secretNum: this.state.secretNum.concat(0) });
+        this.setState({ gsGrade: this.state.gsGrade.concat(0) });
+        this.setState({ gsRank: this.state.gsRank.concat(0) });
 
         //Update variables to be pushed.
         website = courseType;
@@ -321,7 +320,7 @@ class Widget extends Component {
         this.setState({ website: this.state.website.concat(dropDown) });
         this.setState({ urls: this.state.urls.concat(dropDown) });
         this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
-        this.setState({ secretNum: this.state.secretNum.concat(-1) });
+        this.setState({ secretNum: this.state.secretNum.concat(0) });
 
 
         //Update variables to be pushed.
@@ -405,11 +404,6 @@ class Widget extends Component {
 
 
     render(){
-
-        function errorTest() {
-            alert("ugh");
-        }
-
         return(
             <div className="container-fluid">
                 <div className="row">
@@ -429,7 +423,7 @@ class Widget extends Component {
                         return (
                             <If condition={this.state.website[arrayIndex] == 'GradeSource'}>
 
-                                {/* If Gradesource Visual, show logo only */}
+                                {/* If Gradesource, show logo only */}
                                 <Then>
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 w-container-out">
                                         <div className="w-top">
@@ -439,6 +433,9 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo" src={gradesourceLogo}/>
+                                            <center>{this.state.widgetID[arrayIndex]}</center>
+                                            <center>{this.state.website[arrayIndex]}</center>
+                                            <center>{this.state.urls[arrayIndex]}</center>
                                         </div>
                                     </div>
                                 </Then>
@@ -456,6 +453,13 @@ class Widget extends Component {
                                             <br/>
                                             <center>{this.state.gsGrade[arrayIndex]}</center>
                                             <center>{this.state.gsRank[arrayIndex]}</center>
+
+                                            <center>{this.state.widgetID[arrayIndex]}</center>
+                                            <center>{this.state.website[arrayIndex]}</center>
+                                            <center>{this.state.urls[arrayIndex]}</center>
+
+
+
                                         </div>
                                     </div>
                                 </ElseIf>
@@ -471,6 +475,9 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo" src={piazzaLogo}/>
+                                            <center>{this.state.widgetID[arrayIndex]}</center>
+                                            <center>{this.state.website[arrayIndex]}</center>
+                                            <center>{this.state.urls[arrayIndex]}</center>
                                         </div>
                                     </div>
 
@@ -548,6 +555,9 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo defaultWidget" src={defaultWidget}/>
+                                            <center>{this.state.widgetID[arrayIndex]}</center>
+                                            <center>{this.state.website[arrayIndex]}</center>
+                                            <center>{this.state.urls[arrayIndex]}</center>
                                         </div>
                                     </div>
 
@@ -564,6 +574,9 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogoCeleste" src={celesteLogo}/>
+                                            <center>{this.state.widgetID[arrayIndex]}</center>
+                                            <center>{this.state.website[arrayIndex]}</center>
+                                            <center>{this.state.urls[arrayIndex]}</center>
                                         </div>
                                     </div>
 
@@ -579,6 +592,9 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogoPico" src={picoLogo}/>
+                                            <center>{this.state.widgetID[arrayIndex]}</center>
+                                            <center>{this.state.website[arrayIndex]}</center>
+                                            <center>{this.state.urls[arrayIndex]}</center>
                                         </div>
                                     </div>
 
@@ -594,6 +610,9 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogoPico" src={flappyBeeLogo}/>
+                                            <center>{this.state.widgetID[arrayIndex]}</center>
+                                            <center>{this.state.website[arrayIndex]}</center>
+                                            <center>{this.state.urls[arrayIndex]}</center>
                                         </div>
                                     </div>
 
@@ -609,6 +628,9 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo" src={pacmanLogo}/>
+                                            <center>{this.state.widgetID[arrayIndex]}</center>
+                                            <center>{this.state.website[arrayIndex]}</center>
+                                            <center>{this.state.urls[arrayIndex]}</center>
                                         </div>
                                     </div>
 
