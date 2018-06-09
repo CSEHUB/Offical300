@@ -169,11 +169,12 @@ class Widget extends Component {
                 const getWidgets = firebase.database().ref(path);
 
                 getWidgets.once('value').then((snapshot) => {
-                    snapshot.forEach(async (childSnapshot) => {
+                    snapshot.forEach((childSnapshot) => {
                         website = childSnapshot.val().courseType;
                         urls = childSnapshot.val().url;
                         secretGS = childSnapshot.val().secretNum;
                         uid = childSnapshot.key;
+
                         var grade;
                         var rank;
 
@@ -181,8 +182,9 @@ class Widget extends Component {
                         var db = "/GradeSource/" + urls + "/" + secretGS;
 
                         if (website == "Visual") {
-                            await this.test(db);
+                            this.test(db);
                         }
+
 
                         //Update local widgets.
                         this.setState({website: this.state.website.concat(website)});
@@ -190,6 +192,7 @@ class Widget extends Component {
                         this.setState({widgetID: this.state.widgetID.concat(widgetNum)});
                         this.setState({uid: this.state.uid.concat(uid)});
                         this.setState({secretNum: this.state.secretNum.concat(secretGS)});
+
 
                         //Increase ID num for nexr widget. (for iframe display)
                         widgetNum++;
@@ -298,6 +301,16 @@ class Widget extends Component {
         //Make URL http://www.sourcegrade.xyz/grades?id=4562&url=http://www.gradesource.com/reports/7/29889/index.html
         var sourceGrade = "http://www.sourcegrade.xyz/grades?id=" + secretGS + "&url=" + webURL;
 
+        var grade;
+        var rank;
+
+        //Get grade and rank
+        var db = "/GradeSource/" + urls + "/" + secretGS;
+
+        if (website == "Visual") {
+            this.test(db);
+        }
+
         //Update local widgets.
         this.setState({ website: this.state.website.concat("Visual") });
         this.setState({ urls: this.state.urls.concat(course) }); //Can get url from course
@@ -363,8 +376,7 @@ class Widget extends Component {
 
         //Clear existing html
         x.innerHTML = "";
-
-
+        
         if(event.target.value === "Website") {
             x.innerHTML = "<div class=\"form-group\">\n" +
                 "            <label htmlFor=\"exampleFormControlInput1\">URL: </label>\n" +
@@ -433,9 +445,6 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo" src={gradesourceLogo}/>
-                                            <center>{this.state.widgetID[arrayIndex]}</center>
-                                            <center>{this.state.website[arrayIndex]}</center>
-                                            <center>{this.state.urls[arrayIndex]}</center>
                                         </div>
                                     </div>
                                 </Then>
@@ -453,13 +462,6 @@ class Widget extends Component {
                                             <br/>
                                             <center>{this.state.gsGrade[arrayIndex]}</center>
                                             <center>{this.state.gsRank[arrayIndex]}</center>
-
-                                            <center>{this.state.widgetID[arrayIndex]}</center>
-                                            <center>{this.state.website[arrayIndex]}</center>
-                                            <center>{this.state.urls[arrayIndex]}</center>
-
-
-
                                         </div>
                                     </div>
                                 </ElseIf>
@@ -475,9 +477,6 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo" src={piazzaLogo}/>
-                                            <center>{this.state.widgetID[arrayIndex]}</center>
-                                            <center>{this.state.website[arrayIndex]}</center>
-                                            <center>{this.state.urls[arrayIndex]}</center>
                                         </div>
                                     </div>
 
@@ -555,9 +554,6 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo defaultWidget" src={defaultWidget}/>
-                                            <center>{this.state.widgetID[arrayIndex]}</center>
-                                            <center>{this.state.website[arrayIndex]}</center>
-                                            <center>{this.state.urls[arrayIndex]}</center>
                                         </div>
                                     </div>
 
@@ -574,9 +570,6 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogoCeleste" src={celesteLogo}/>
-                                            <center>{this.state.widgetID[arrayIndex]}</center>
-                                            <center>{this.state.website[arrayIndex]}</center>
-                                            <center>{this.state.urls[arrayIndex]}</center>
                                         </div>
                                     </div>
 
@@ -592,9 +585,6 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogoPico" src={picoLogo}/>
-                                            <center>{this.state.widgetID[arrayIndex]}</center>
-                                            <center>{this.state.website[arrayIndex]}</center>
-                                            <center>{this.state.urls[arrayIndex]}</center>
                                         </div>
                                     </div>
 
@@ -610,9 +600,6 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogoPico" src={flappyBeeLogo}/>
-                                            <center>{this.state.widgetID[arrayIndex]}</center>
-                                            <center>{this.state.website[arrayIndex]}</center>
-                                            <center>{this.state.urls[arrayIndex]}</center>
                                         </div>
                                     </div>
 
@@ -628,9 +615,6 @@ class Widget extends Component {
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo" src={pacmanLogo}/>
-                                            <center>{this.state.widgetID[arrayIndex]}</center>
-                                            <center>{this.state.website[arrayIndex]}</center>
-                                            <center>{this.state.urls[arrayIndex]}</center>
                                         </div>
                                     </div>
 
