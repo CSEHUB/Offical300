@@ -94,18 +94,28 @@ class Widget extends Component {
                     let newWidgetID = prevState.widgetID.slice();
                     let newUid = prevState.uid.slice();
                     let newSecretNum = prevState.secretNum.slice();
+                    let gsGrade = prevState.gsGrade.slice();
+                    let gsRank = prevState.gsRank.slice();
+                    let gsURL = prevState.gsURL.slice();
+
                     newUrls.splice(param, 1);
                     newWebsite.splice(param, 1);
                     newWidgetID.splice(param, 1);
                     newUid.splice(param, 1);
                     console.log(newUrls);
                     newSecretNum.splice(param, 1);
+                    gsGrade.splice(param, 1);
+                    gsRank.splice(param, 1);
+                    gsURL.splice(param, 1);
                     return {
                         urls: newUrls,
                         website: newWebsite,
                         widgetID: newWidgetID,
                         uid: newUid,
-                        secretNum: newSecretNum
+                        secretNum: newSecretNum,
+                        gsRank: gsRank,
+                        gsURL: gsURL,
+                        gsGrade: gsGrade
                     }
                 });
             }
@@ -329,12 +339,18 @@ class Widget extends Component {
         var db = "/GradeSource/" + course + "/" + secretGS;
         this.getGradeSourceInfo(db);
 
+        var index = this.state.website.length;
+
+        //Get course url from database:
+        db = "/GradeSource/" + urls + "/URL";
+
+        this.getGradeSourceURL(db, index);
+
         //Update local widgets.
         this.setState({ website: this.state.website.concat("Visual") });
         this.setState({ urls: this.state.urls.concat(course) }); //Can get url from course
         this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
         this.setState({ secretNum: this.state.secretNum.concat(secretGS) });
-        this.setState({gsURL: this.state.gsURL.concat("http://www.piazza.com")});
 
         //Update variables to be pushed.
         website = "Visual";
@@ -345,7 +361,6 @@ class Widget extends Component {
 
         //Lets prep firebase for update and then update.
         this.getWid();
-
     }
 
     Game() {
@@ -354,7 +369,6 @@ class Widget extends Component {
         this.setState({ urls: this.state.urls.concat(dropDown) });
         this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
         this.setState({ secretNum: this.state.secretNum.concat(0) });
-
 
         //Update variables to be pushed.
         website = dropDown;
@@ -474,7 +488,7 @@ class Widget extends Component {
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 w-container-out">
                                         <div className="w-top">
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
-                                            <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
+                                            <div className="w-top-r"><a href={this.state.gsURL[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
                                         <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
