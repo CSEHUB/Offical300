@@ -29,8 +29,6 @@ var uid;
 var dropDown;
 var module = require('./courses');
 var courses = module.courses;
-var gsGrade = "Overall Grade: 90.65%"; //0229
-var gsRank = "Class Rank: 178/247";
 var secretGS;
 var GScourse;
 
@@ -43,7 +41,8 @@ function uploadWidget() {
     var widget = {
         id:0,
         courseType:website,
-        url:urls
+        url:urls,
+        secretNum:secretGS
     }
 
     widgetAdd = false; //Finish add widget process.
@@ -63,8 +62,11 @@ class Widget extends Component {
             website: new Array(),
             widgetID: new Array(),
             uid: new Array(),
-            secretNum: new Array()
+            secretNum: new Array(),
+            gsGrade: new Array(),
+            gsRank: new Array()
         }
+        this.setState({gsGrade: this.state.gsGrade.concat("shane")});
 
         this.makeWidget = this.makeWidget.bind(this);
 
@@ -143,7 +145,33 @@ class Widget extends Component {
         });
     }
 
-    getWidgets() {
+    test(param) {
+        var grade;
+        var rank;
+        //Get rank and grade
+       firebase.database().ref(param).once('value').then(function (snapshot) {
+            try {
+                grade = "Overall Grade: " + snapshot.val().Grade;
+                rank = "Rank:" + snapshot.val().Rank;
+
+                //Update widget with values
+                this.setState({gsGrade: this.state.gsGrade.concat("shane")});
+                this.setState({gsRank: this.state.gsRank.concat("jsjj")});
+
+            }
+            catch (error) {
+                console.error(error);
+            }
+        });
+
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve('resolved');
+            }, 2000);
+        });
+    }
+
+    async getWidgets() {
 
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
@@ -151,18 +179,27 @@ class Widget extends Component {
                 const getWidgets = firebase.database().ref(path);
 
                 getWidgets.once('value').then((snapshot) => {
-                    snapshot.forEach((childSnapshot) => {
+                    snapshot.forEach(async (childSnapshot) => {
                         website = childSnapshot.val().courseType;
                         urls = childSnapshot.val().url;
                         secretGS = childSnapshot.val().secretNum;
                         uid = childSnapshot.key;
+                        var grade;
+                        var rank;
+
+                        var db = "/GradeSource/" + urls + "/" + secretGS;
+
+                        if (website == "Visual") {
+                            await this.test(db);
+                        }
 
                         //Update local widgets.
-                        this.setState({ website: this.state.website.concat(website) });
-                        this.setState({ urls: this.state.urls.concat(urls) });
-                        this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
-                        this.setState({ uid: this.state.uid.concat(uid) });
-                        this.setState({ secretNum: this.state.secretNum.concat(secretGS) });
+                        this.setState({website: this.state.website.concat(website)});
+                        this.setState({urls: this.state.urls.concat(urls)});
+                        this.setState({widgetID: this.state.widgetID.concat(widgetNum)});
+                        this.setState({uid: this.state.uid.concat(uid)});
+                        this.setState({secretNum: this.state.secretNum.concat(secretGS)});
+
 
 
                         //Increase ID num for nexr widget. (for iframe display)
@@ -229,7 +266,9 @@ class Widget extends Component {
         this.setState({ website: this.state.website.concat(courseType) });
         this.setState({ urls: this.state.urls.concat(origURL) });
         this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
-        this.setState({ secretNum: this.state.secretNum.concat(0) });
+        this.setState({ secretNum: this.state.secretNum.concat(-1) });
+        this.setState({ gsGrade: this.state.gsGrade.concat(-1) });
+        this.setState({ gsRank: this.state.gsRank.concat(-1) });
 
         //Update variables to be pushed.
         website = courseType;
@@ -261,8 +300,14 @@ class Widget extends Component {
 
         //Get firebase data Overall grade, rank
         firebase.database().ref("/GradeSource/" + course + "/" + secretGS).once('value').then(function(snapshot) {
-            gsGrade = "Overall Grade: " + snapshot.val().Grade;
-            gsRank = "Rank:" + snapshot.val().Rank;
+            try {
+                //this.setState({gsGrade: "Overall Grade: " + snapshot.val().Grade});
+                //this.setState({gsRank: "Rank:" + snapshot.val().Rank});
+
+            }
+            catch(error) {
+                console.error(error);
+            }
         });
 
         //Make sure url is lowercase for comparisons
@@ -278,13 +323,13 @@ class Widget extends Component {
 
         //Update local widgets.
         this.setState({ website: this.state.website.concat("Visual") });
-        this.setState({ urls: this.state.urls.concat(webURL) });
+        this.setState({ urls: this.state.urls.concat(course) }); //Can get url from course
         this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
         this.setState({ secretNum: this.state.secretNum.concat(secretGS) });
 
         //Update variables to be pushed.
         website = "Visual";
-        urls = webURL;
+        urls = course;
 
         //Increment widget count for unique ID for modal popup identifier.
         widgetNum++;
@@ -298,7 +343,7 @@ class Widget extends Component {
         this.setState({ website: this.state.website.concat(dropDown) });
         this.setState({ urls: this.state.urls.concat(dropDown) });
         this.setState({ widgetID: this.state.widgetID.concat(widgetNum) });
-        this.setState({ secretNum: this.state.secretNum.concat(0) });
+        this.setState({ secretNum: this.state.secretNum.concat(-1) });
 
 
         //Update variables to be pushed.
@@ -383,6 +428,10 @@ class Widget extends Component {
 
     render(){
 
+        function errorTest() {
+            alert("ugh");
+        }
+
         return(
             <div className="container-fluid">
                 <div className="row">
@@ -427,8 +476,9 @@ class Widget extends Component {
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo" src={gradesourceLogo}/>
                                             <br/>
-                                            <center>{gsGrade}</center>
-                                            <center>{gsRank}</center>
+                                            <center>{this.state.gsGrade[arrayIndex]}</center>
+                                            <center>{this.state.gsRank[arrayIndex]}</center>
+                                            <center>test</center>
                                         </div>
                                     </div>
                                 </ElseIf>
@@ -607,9 +657,8 @@ class Widget extends Component {
                                                 <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
                                                     <div className="modal-content widget-modal-h">
                                                         <div className="modal-body widget-modal-h">
-                                                            <p>SEE HOW GRADESCOPE BLOCKS THE IFRAME FROM POPPING UP???? </p>
-                                                            <a target="_blank" href="https://stackoverflow.com/a/35790513">Click this text to learn more....</a>
-                                                        </div>
+                                                            <iframe className="modal-full" src={this.state.urls[Index]}
+                                                                    frameBorder="0" allow="autoplay; encrypted-media"></iframe>                                                        </div>
                                                     </div>
                                                 </div>
                                             </Then>
@@ -618,7 +667,9 @@ class Widget extends Component {
                                                 <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
                                                     <div className="modal-content widget-modal-h">
                                                         <div className="modal-body widget-modal-h">
-                                                <iframe sandbox="allow-scripts" scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/235259/Celeste/index.html" style={{border: '0px none', marginLeft: '0px', height: 565, marginTop: 0, width: 570}}/>
+                                                <iframe sandbox="allow-scripts" scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/235259/Celeste/index.html" style={{border: '0px none', marginLeft: '0px', height: 565, marginTop: 0, width: 570}}>
+                                                    <p>Your browser does not support iframes.</p>
+                                                        </iframe>
                                                         </div>
                                                     </div>
                                                 </div>
