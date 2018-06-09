@@ -30,9 +30,6 @@ var dropDown;
 var module = require('./courses');
 var courses = module.courses;
 var secretGS = 0;
-var GScourse;
-
-var json = '{"user": [{}],website }';
 
 function uploadWidget() {
 
@@ -145,16 +142,18 @@ class Widget extends Component {
         });
     }
 
-    async test(param) {
+    async getGradeSourceInfo(param) {
         var grade;
         var rank;
 
         //Get rank and grade
        await firebase.database().ref(param).once('value').then(function (snapshot) {
                 grade = "Overall Grade: " + snapshot.val().Grade;
-                rank = "Rank:" + snapshot.val().Rank;
-
+                rank = "Rank: " + snapshot.val().Rank;
         });
+
+       //Fixes formatting by removing spaces inbetween data in string
+        grade = grade.split('．').join('.');
 
         //Update widget with values
         this.setState({gsGrade: this.state.gsGrade.concat(grade)});
@@ -182,7 +181,7 @@ class Widget extends Component {
                         var db = "/GradeSource/" + urls + "/" + secretGS;
 
                         if (website == "Visual") {
-                            this.test(db);
+                            this.getGradeSourceInfo(db);
                         }
 
 
@@ -273,24 +272,35 @@ class Widget extends Component {
         this.getWid();
     }
 
-    /*
-    async GradeSourceCourses(){
-        return firebase.database().ref('/GradeSource').once('value').then(function(snapshot) {
-            snapshot.forEach(function(childSnapshot) {
-
-                var courseName = childSnapshot.key;
-                courses.push(courseName);
-
-            });
-        });
-    }
-*/
     GradeSource() {
-        var webURL = "http://www.gradesource.com/reports/7/29889/index.html"//document.getElementById("GSURL").value;
+        var webURL;
         secretGS = document.getElementById("secretNum").value;
         var course = document.getElementById("gsCourseName").value;
 
-        //Make sure url is lowercase for comparisons
+        //Get course url from database:
+        var db = "/GradeSource/" + course + "/URL";
+
+        //Get gradesource url
+        firebase.database().ref(db).once('value').then(function (snapshot) {
+            webURL = snapshot.val();
+            //Format url by removing spaces
+            webURL = webURL.split('．').join('.');
+            webURL = webURL.split('／').join('/');
+
+            alert(webURL);
+
+        });
+
+
+        //Update widget with values
+        this.setState({gsGrade: this.state.gsGrade.concat(grade)});
+        this.setState({gsRank: this.state.gsRank.concat(rank)});
+
+
+        /*
+        Hope to add this when same origin is worked around.
+
+        Make sure url is lowercase for comparisons
         webURL = webURL.toLowerCase();
 
         //Check if "http://" is at begin if not add it
@@ -298,18 +308,18 @@ class Widget extends Component {
             webURL = 'http://' + webURL;
         }
 
-        //Make URL http://www.sourcegrade.xyz/grades?id=4562&url=http://www.gradesource.com/reports/7/29889/index.html
+        Make URL http://www.sourcegrade.xyz/grades?id=4562&url=http://www.gradesource.com/reports/7/29889/index.html
         var sourceGrade = "http://www.sourcegrade.xyz/grades?id=" + secretGS + "&url=" + webURL;
+        */
 
         var grade;
         var rank;
 
         //Get grade and rank
-        var db = "/GradeSource/" + urls + "/" + secretGS;
+        db = "/GradeSource/" + course + "/" + secretGS;
 
-        if (website == "Visual") {
-            this.test(db);
-        }
+        this.getGradeSourceInfo(db);
+
 
         //Update local widgets.
         this.setState({ website: this.state.website.concat("Visual") });
@@ -376,7 +386,7 @@ class Widget extends Component {
 
         //Clear existing html
         x.innerHTML = "";
-        
+
         if(event.target.value === "Website") {
             x.innerHTML = "<div class=\"form-group\">\n" +
                 "            <label htmlFor=\"exampleFormControlInput1\">URL: </label>\n" +
