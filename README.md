@@ -1,11 +1,15 @@
-Docker image here: 
-https://hub.docker.com/r/shanenielsen123/csehub/
+<h1>Welcome to CSE HUB!</h1>
 
-
-Might need to run before start:
-
+<h3>Instructions:</h3>
+To begin, clone the repo and run:
+<br></br>
 npm install
 
-npm install react-if-elseif-else-render
-
 npm start
+
+
+
+<h4>Now you should see the app loaded in your browser!</h4>
+
+
+

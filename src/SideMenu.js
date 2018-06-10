@@ -1,3 +1,4 @@
+//--------------Layering example ------------------
 import './App.css'
 import logo from './res/images/Logo.png'
 import {Widget1} from './Header';
@@ -25,7 +26,7 @@ function addWidget(param) {
 }
 
 
-//Functions for opening components:
+//Layering - Functions for opening components, depending on routing view
 function openFourYearPlanner() {
     {/* This removes any widgets that may be from a different class */}
     ReactDOM.unmountComponentAtNode(document.getElementById('bottom'));
@@ -174,7 +175,7 @@ export class SideMenu extends Component {
                                 </div>
                             <li className="menu-main-item"><div className="menu-icons"><i className="fas fa-th-large"></i></div>Workspaces <div className="addWorkspace ml-auto" data-toggle="modal" data-target="#modal-addWebsite">+</div></li>
 
-                            {/* Dynamically load menu with workspaces from firebase with correct styling and routing links */}
+                            {/* ------- Dynamically load menu with workspaces from firebase with correct styling and routing links ------- */}
                             {this.state.courses.map((courseTitle, arrayIndex) => {
                                 return (
                                     <li onClick={addWidget.bind(this, courseTitle)}><NavLink exact to={"/dashboard/course/" + courseTitle} className="menu-item mih" activeClassName="activeMenuItem" >{courseTitle}</NavLink></li>

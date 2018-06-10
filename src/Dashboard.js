@@ -1,3 +1,4 @@
+//----------------MVC - EXAMPLE------------
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -17,6 +18,8 @@ import {defWorkspace} from "./defWorkspace";
 
 export class Dashboard extends Component {
 
+
+    //---------------------MVC - Model (data/logic for handling routing and data)-----------------
     constructor(props) {
         super(props);
         this.state = {
@@ -31,6 +34,10 @@ export class Dashboard extends Component {
         //get first part (which is the page type "ex: dashboard, settings, course, login etc..."
         var pageType = pathParts[2];
         //if page is equal to a course page, we know that we need to load widgets in the bottom right section
+
+
+
+        //------------------------MVC - View (Display modal for add workspace on click) --------------------------
         if(pageType == "course") {
             //get course Name (so we know which widgets to load)
             var courseName = pathParts[3];
@@ -70,6 +77,7 @@ export class Dashboard extends Component {
         });
     }
 
+    //------------------------MVC - View (Display modal for add workspace on click) --------------------------
     render(){
         return(
         <Route>
@@ -97,6 +105,9 @@ export class Dashboard extends Component {
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel
                                     </button>
+
+                                    {/* -------------------------------MVC - Controller - add new workspace onClick---------------------------------*/}
+
                                     <button onClick={Dashboard.makeWorkspace} type="button" className="btn btn-primary" data-dismiss="modal">Save Workspace</button>
                                 </div>
                             </div>
