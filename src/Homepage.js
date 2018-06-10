@@ -1,12 +1,9 @@
 import './App.css'
-import logo from './res/images/Logo.png'
 import bkImg from './res/images/homepageGeisel.jpg'
 import dashImg from './res/images/dashboard-sample.png'
 import teamImg from './res/images/teamPhoto.jpg'
 import techLogosImg from './res/images/allLogos.png'
-import Widget from './Widget.js';
 import React from 'react';
-
 import lucasProfileImg from './res/images/Members/lucas.jpg'
 import chrisProfileImg from './res/images/Members/chris.jpg'
 import mahibProfileImg from './res/images/Members/mahib.jpg'
@@ -18,11 +15,8 @@ import andrewProfileImg from './res/images/Members/andrew.png'
 import yeProfileImg from './res/images/Members/ye.png'
 import moProfileImg from './res/images/Members/mo.jpg'
 import garyProfileImg from './res/images/Members/gary.jpeg'
-
 import {
     BrowserRouter as Router,
-    Route,
-    Link
 } from 'react-router-dom'
 
 {/* Used for image styling in CSS */}
@@ -32,10 +26,6 @@ var backgroundImg = {
 
 var teamBackgroundImg = {
     backgroundImage: 'url(' + teamImg + ')'
-};
-
-var noShow = {
-    display:'none'
 };
 
 export const Homepage = () => {
@@ -97,22 +87,22 @@ export const Homepage = () => {
 
                     <div className="row text-center pt20">
                         <div className="col-md-3">
-                            <img className="profilePhoto" src={lucasProfileImg}/>
+                            <img className="profilePhoto" alt="Lucas Nathan" src={lucasProfileImg}/>
                             <h4>Lucas Nathan</h4>
                             <h5>Project Manager</h5>
                         </div>
                         <div className="col-md-3">
-                            <img className="profilePhoto" src={chrisProfileImg}/>
+                            <img className="profilePhoto" alt="Chris Synnott" src={chrisProfileImg}/>
                             <h4>Chris Synnott</h4>
                             <h5>Software Development Lead/UI Specialist</h5>
                         </div>
                         <div className="col-md-3">
-                            <img className="profilePhoto" src={yeProfileImg}/>
+                            <img className="profilePhoto" alt="Ye Lin" src={yeProfileImg}/>
                             <h4>Ye Lin</h4>
                             <h5>Database Specialist</h5>
                         </div>
                         <div className="col-md-3">
-                            <img className="profilePhoto" src={mahibProfileImg}/>
+                            <img className="profilePhoto" alt="Mahib Hosain" src={mahibProfileImg}/>
                             <h4>Mahib Hosain</h4>
                             <h5>Software Architect</h5>
                         </div>
@@ -120,22 +110,22 @@ export const Homepage = () => {
 
                     <div className="row text-center pt45">
                         <div className="col-md-3">
-                            <img className="profilePhoto" src={kevinProfileImg}/>
+                            <img className="profilePhoto" alt="Kevin Nguyen" src={kevinProfileImg}/>
                             <h4>Kevin Nguyen</h4>
                             <h5>Software Development Lead</h5>
                         </div>
                         <div className="col-md-3">
-                            <img className="profilePhoto" src={shaneProfileImg}/>
+                            <img className="profilePhoto" alt="Shane Nielsen" src={shaneProfileImg}/>
                             <h4>Shane Nielsen</h4>
                             <h5>Software Development Lead</h5>
                         </div>
                         <div className="col-md-3">
-                            <img className="profilePhoto" src={andrewProfileImg}/>
+                            <img className="profilePhoto" alt="Andrew Sylvester" src={andrewProfileImg}/>
                             <h4>Andrew Sylvester</h4>
                             <h5>Senior System Analyst</h5>
                         </div>
                         <div className="col-md-3">
-                            <img className="profilePhoto" src={jasonProfileImg}/>
+                            <img className="profilePhoto" alt="Jason Kuo" src={jasonProfileImg}/>
                             <h4>Jason Kuo</h4>
                             <h5>Algorithm Specialist</h5>
                         </div>
@@ -143,17 +133,17 @@ export const Homepage = () => {
 
                     <div className="row text-center pt45">
                         <div className="col-md-3">
-                            <img className="profilePhoto" src={moProfileImg}/>
+                            <img className="profilePhoto" alt="Mo Rahman" src={moProfileImg}/>
                             <h4>Mo Rahman</h4>
                             <h5>Business Analyst</h5>
                         </div>
                         <div className="col-md-3">
-                            <img className="profilePhoto" src={ericProfileImg}/>
+                            <img className="profilePhoto" alt="Eric Ping" src={ericProfileImg}/>
                             <h4>Eric Ping</h4>
                             <h5>Quality Assurance Lead</h5>
                         </div>
                         <div className="col-md-3">
-                            <img className="profilePhoto" src={garyProfileImg}/>
+                            <img className="profilePhoto" alt="Gary Gillespie" src={garyProfileImg}/>
                             <h4>Gary Gillespie</h4>
                             <h5>Professor</h5>
                         </div>
@@ -163,50 +153,38 @@ export const Homepage = () => {
                 </div>
 
                 <div className="b-space pt65"></div>
-
                 <div className="container">
                     <div className="row pt65 ptm85 text-center">
                         <div className="col-md-12">
                             <h2>Built with <span className="heartLogo"><i className="fas fa-heart"></i></span></h2>
                             <p className="pt20">For the Spring 2018 quarter with Gary Gillespie, CSE HUB is a software engineering project for
                                 CSE110 built with the following technologies/frameworks: </p>
-
                         </div>
                     </div>
-
                     <div className="row pt20 text-center">
                         <div className="col-md-12">
                             <img className="w100" src={techLogosImg}/>
                         </div>
                     </div>
                 </div>
-
-
             </main>
 
             <footer className="container mt65">
                 <p className="text-center">&copy; CSE HUB 2018</p>
             </footer>
 
-
                 <div className="modal fade" id="modal-youtubeTutorial" tabIndex="-1" role="dialog"
                      aria-labelledby="youtubeTutorialModal" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
-
                             <div className="modal-body">
                                 <iframe className="w100" width="560" height="315" src="https://www.youtube.com/embed/WhrsY3CfpBI"
                                         frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </Router>
-
     );
 };

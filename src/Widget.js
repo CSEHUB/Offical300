@@ -3,7 +3,6 @@ import {Dashboard} from './Dashboard';
 import firebase from 'firebase';
 import 'firebase/database';
 import './index.css';
-import logo from './res/images/Logo.png'
 import gradesourceLogo from './res/images/GradeSource_logo.png'
 import piazzaLogo from './res/images/Piazza_logo.png'
 import autograderLogo from './res/images/Autograder_Logo.png'
@@ -15,9 +14,7 @@ import flappyBeeLogo from './res/images/flappyBee.png'
 import pacmanLogo from './res/images/Pacman_logo.png'
 import defaultWidget from './res/images/defaultWidget.png'
 import pdfLogo from './res/images/pdfLogo.png'
-
 import { If, Then, ElseIf, Else } from 'react-if-elseif-else-render';
-import ReactDOM from "react-dom";
 
 var courseName;
 var widgetNum = 0;
@@ -31,30 +28,23 @@ var module = require('./courses');
 var courses = module.courses;
 var secretGS = 0;
 
+
 function uploadWidget() {
-
     var path = `workspaces/` + wid + '/widgets';
-
     var widget = {
         id:0,
         courseType:website,
         url:urls,
         secretNum:secretGS
     }
-
     widgetAdd = false; //Finish add widget process.
-
     return firebase.database().ref(path).push(widget).getKey();
-
 }
 
 class Widget extends Component {
-
     constructor(name) {
         super();
         courseName = name;
-
-
         this.state = {
             urls: new Array(),
             website: new Array(),
@@ -73,7 +63,6 @@ class Widget extends Component {
         widgetAdd = false;
         this.getWid();
     }
-    
 
     //Function to remove a widget from firebase, and website.
     rmWidget(param) {
@@ -121,7 +110,6 @@ class Widget extends Component {
                 });
             }
         });
-        //window.location.reload(); //Will change later.
     }
 
     //Get workspace ID and call upload widget or download widgets
@@ -159,7 +147,7 @@ class Widget extends Component {
         var rank;
 
         //Get rank and grade
-       await firebase.database().ref(param).once('value').then(function (snapshot) {
+        await firebase.database().ref(param).once('value').then(function (snapshot) {
            try {
                grade = "Overall Grade: " + snapshot.val().Grade;
                rank = "Rank: " + snapshot.val().Rank;
@@ -172,19 +160,15 @@ class Widget extends Component {
            }
         });
 
-
         //Update widget with values
         var array = this.state.gsGrade;
         array[index] = grade;
         this.setState({gsGrade: array});
 
-
         //Update widget with values
         array = this.state.gsRank;
         array[index] = rank;
         this.setState({gsRank: array});
-
-
     }
 
     async getGradeSourceURL(param, index) {
@@ -335,7 +319,6 @@ class Widget extends Component {
         secretGS = document.getElementById("secretNum").value;
         var course = document.getElementById("gsCourseName").value;
 
-
         /*
         Hope to add this when same origin is worked around.
 
@@ -410,7 +393,6 @@ class Widget extends Component {
             //Add a website widget type.
             this.websiteWidget();
         }
-
         else if(widgetType === "Visual") {
             this.GradeSource();
         }
@@ -479,7 +461,7 @@ class Widget extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    {/* Load/render widgets you see on screen intially */}
+                    {/* Load/render widgets you see on screen initially */}
                     {/* Modals (see below this) and widgets are connected via id's */}
                     {/* I imported a library for easy if/if-else/then etc.. tags */}
                     {this.state.urls.map((url, arrayIndex) => {
@@ -518,7 +500,7 @@ class Widget extends Component {
                                 </ElseIf>
 
 
-                                {/* If piazza, just show logo */}
+                                {/* If Piazza, just show logo */}
                                 <ElseIf condition={this.state.website[arrayIndex] == 'Piazza'}>
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 w-container-out">
                                         <div className="w-top">
@@ -562,7 +544,7 @@ class Widget extends Component {
                                     </div>
                                 </ElseIf>
 
-                                {/* If podcast, just show logo */}
+                                {/* If Podcast, just show logo */}
                                 <ElseIf condition={this.state.website[arrayIndex] == 'Podcast'}>
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 w-container-out">
                                         <div className="w-top">
@@ -576,7 +558,7 @@ class Widget extends Component {
                                     </div>
                                 </ElseIf>
 
-                                {/* If pdf */}
+                                {/* If PDF */}
                                 <ElseIf condition={this.state.website[arrayIndex] == 'pdf'}>
                                     <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12  w-container-out">
                                         <div className="w-top">
@@ -739,7 +721,7 @@ class Widget extends Component {
 
 
                                             <Else>
-                                                <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
+                                                <div className="modal-dialog widget-modal modal-dialog-centered">
                                                     <div className="modal-content widget-modal-h">
                                                         <div className="modal-body widget-modal-h">
                                                 <iframe className="modal-full" src={this.state.urls[Index]}
@@ -748,14 +730,15 @@ class Widget extends Component {
                                                     </div>
                                                 </div>
                                             </Else>
-
-
                                         </If>
                         </div>
                     )
                 })}
 
-                {/* Add Website Modal */}
+
+
+
+                {/* -------------- Add Workspace Modal ------------- */}
                 <div className="modal fade" id="modal-addWebsite" tabIndex="-1" role="dialog"
                      aria-labelledby="AddWebsite" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">
@@ -786,7 +769,7 @@ class Widget extends Component {
                     </div>
                 </div>
 
-                {/* Add Widget Modal */}
+                {/* ------------- Add Widget Modal -------------- */}
                 <div className="modal fade" id="modal-addWidget" tabIndex="-1" role="dialog"
                      aria-labelledby="AddWebsite" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">

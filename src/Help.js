@@ -1,22 +1,13 @@
 import './App.css'
-import logo from './res/images/Logo.png'
-import Widget from './Widget.js';
-import {Header, Widget1} from './Header';
 import React, {Component} from 'react';
-import ReactDOM from "react-dom";
-import firebase from 'firebase';
 import 'firebase/database';
 import {
     BrowserRouter as Router,
-    Route,
-    Link,
-    NavLink
 } from 'react-router-dom'
 import {Dashboard,makeWorkspace} from "./Dashboard";
 
 
 export class Help extends Component {
-
     constructor(props) {
         super(props);
     }
@@ -24,19 +15,18 @@ export class Help extends Component {
         return(
             <Router>
             <div className="container-fluid">
-
                     <div className="row">
                         <div className="col-md-8 offset-md-2 settings-wrapper">
                             <div className="settings-outer">
                                 <div className="settings-inner">
                                     <div><h3>Help/Tutorial</h3></div>
+                                    <br></br>
                                     <iframe className="w100" height="315" src="https://www.youtube.com/embed/WhrsY3CfpBI"
                                             frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
                                 </div>
                             </div>
                         </div>
                     </div>
-
 
                     {/* Add Workspace Modal */}
                     <div className="modal fade" id="modal-addWebsite" tabIndex="-1" role="dialog"
@@ -50,7 +40,6 @@ export class Help extends Component {
                                     </button>
                                 </div>
                                 <div className="modal-body">
-
                                     <form>
                                         <div className="form-group">
                                             <label htmlFor="exampleFormControlInput1">Title: </label>
@@ -58,7 +47,6 @@ export class Help extends Component {
                                                    placeholder="ex: CSE 110"/>
                                         </div>
                                     </form>
-
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel

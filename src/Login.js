@@ -4,7 +4,7 @@ import firebaseui from 'firebaseui';
 import 'firebase/database';
 import '../node_modules/firebaseui/dist/firebaseui.css';
 import {FIREBASE_CONFIG} from "./config";
-//import Form from './components/Form.js'
+
 
 var app = firebase.initializeApp(FIREBASE_CONFIG);
 
@@ -29,9 +29,6 @@ firebase.auth().onAuthStateChanged( user => {
 class Login extends Component {
     constructor(props) {
         super(props);
-
-       // firebase.initializeApp(FIREBASE_CONFIG);
-
     }
 
     componentDidMount(){
@@ -40,11 +37,7 @@ class Login extends Component {
             signInOptions: [
                 // Leave the lines as is for the providers you want to offer your users.
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-                //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-                //firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-                //firebase.auth.GithubAuthProvider.PROVIDER_ID,
                 firebase.auth.EmailAuthProvider.PROVIDER_ID,
-                //firebase.auth.PhoneAuthProvider.PROVIDER_ID
             ],
             // Terms of service url.
             tosUrl: '<your-tos-url>'

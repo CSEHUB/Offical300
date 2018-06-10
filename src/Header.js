@@ -11,7 +11,7 @@ export const Header = () => {
                 {/* Logo portion of Nav, to match sidebar */}
                 <div className="col-lg-2 order-lg-1 col-md-2 order-md-1 order-sm-1 order-1 col-5">
                     <div className="mr-auto form-inline topNavLogoSearchContainer">
-                        <a className="App-logo" href="/"><img id="Logo" src={logo}/></a>
+                        <a className="App-logo" href="/"><img alt="logo" id="Logo" src={logo}/></a>
                     </div>
                 </div>
                 {/* Nav - Everything to right of logo */}
@@ -26,12 +26,11 @@ export const Header = () => {
                         </div>
                         </div>
 
-
                         <div className="col-lg-4 order-lg-3 col-md-4 order-md-3 order-sm-2 order-2 col-7">
                         <div className="addWorkspace ml-auto" data-toggle="modal" data-target="#modal-addWidget">ADD WIDGET</div>
                         <div className="floatRight form-inline googleDiv">
                             <div className="googleName order-md-1 order-2"></div>
-                            <div className="googlePhotoWrapper order-md-2 order-1"><img class="googlePhoto" src={googlePhoto}/></div>
+                            <div className="googlePhotoWrapper order-md-2 order-1"><img alt="profile picture" class="googlePhoto" src={googlePhoto}/></div>
                         </div>
 
             </div>

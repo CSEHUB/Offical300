@@ -1,50 +1,41 @@
 import './App.css'
 import logo from './res/images/Logo.png'
-import Widget from './Widget.js';
-import {Header, Widget1} from './Header';
+import {Widget1} from './Header';
 import React, {Component} from 'react';
 import ReactDOM from "react-dom";
 import firebase from 'firebase';
-import firebaseui from 'firebaseui';
 import {Settings} from "./Settings";
 import {Help} from "./Help.js";
 import 'firebase/database';
 import {
     BrowserRouter as Router,
-    Route,
-    Link,
     NavLink
 } from 'react-router-dom'
 import {Homepage} from "./Homepage";
 import FourYearPlan from "./CoursePlannerWidget/components/FourYearPlan";
-import {defWorkspace} from "./defWorkspace";
 
 var courses = new Array();
-
 export var last_position = 0;
 
 function addWidget(param) {
     {/* This removes any widgets that may be from a different class */}
     ReactDOM.unmountComponentAtNode(document.getElementById('bottom'));
-
     {/* Render the course widgets */}
     ReactDOM.render(<Widget1 name={param}></Widget1>, document.getElementById('bottom'));
 }
 
 
+//Functions for opening components:
 function openFourYearPlanner() {
     {/* This removes any widgets that may be from a different class */}
     ReactDOM.unmountComponentAtNode(document.getElementById('bottom'));
-
     {/* Render the settings page */}
     ReactDOM.render(<FourYearPlan/>, document.getElementById('bottom'));
 }
 
-
 function openSettings() {
     {/* This removes any widgets that may be from a different class */}
     ReactDOM.unmountComponentAtNode(document.getElementById('bottom'));
-
     {/* Render the settings page */}
     ReactDOM.render(<Settings/>, document.getElementById('bottom'));
 }
@@ -52,7 +43,6 @@ function openSettings() {
 function openHelp() {
     {/* This removes any widgets that may be from a different class */}
     ReactDOM.unmountComponentAtNode(document.getElementById('bottom'));
-
     {/* Render the settings page */}
     ReactDOM.render(<Help/>, document.getElementById('bottom'));
 }
@@ -92,13 +82,11 @@ export class SideMenu extends Component {
                 var getData = firebase.database().ref('/users/' + userId + '/workspace');
                 var temp = new Array();
                 getData.on('child_added', (snapshot, prevChildKey) => {
-                    console.log(snapshot.key);
                     var name = snapshot.key;
                     var key = snapshot.val();
                     var workspaceData = firebase.database().ref('/workspaces/'+snapshot.val());
                     workspaceData.once('value',(snapshot)=>{
                         if(snapshot.val()!=null) {
-                            console.log(snapshot.val());
                             var position = snapshot.val().position;
                             this.setState(prevState => {
                                 var positionArray = prevState.position.slice();
@@ -108,7 +96,6 @@ export class SideMenu extends Component {
                                 courseArray.push(name);
                                 courseKeyArray.push(key);
 
-                                console.log(positionArray);
                                 for (var i = 0; i < positionArray.length - 1; i++) {
                                     for (var j = i + 1; j < positionArray.length; j++) {
                                         if (positionArray[i] > positionArray[j]) {
@@ -121,7 +108,6 @@ export class SideMenu extends Component {
                                             positionArray[j] = temp1;
                                             courseArray[j] = temp2;
                                             courseKeyArray[j] = temp3;
-                                            console.log(positionArray);
                                         }
                                     }
                                 }
@@ -142,6 +128,7 @@ export class SideMenu extends Component {
         });
     }
 
+    //Update menu on deletion of menu item
     listenDelete(){
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
@@ -151,9 +138,6 @@ export class SideMenu extends Component {
                 var getData = firebase.database().ref('/users/' + userId + '/workspace');
                 var temp = new Array();
                 getData.on("child_removed", (snapshot) => {
-                    console.log("snapshot:");
-                    console.log(snapshot.val());
-                    console.log(snapshot.key);
                     var deletedCourse = snapshot.key;
                     var deletedKey = snapshot.key;
                     var courseIndex = this.state.courses.indexOf(deletedCourse);
@@ -189,17 +173,15 @@ export class SideMenu extends Component {
                                     </a>
                                 </div>
                             <li className="menu-main-item"><div className="menu-icons"><i className="fas fa-th-large"></i></div>Workspaces <div className="addWorkspace ml-auto" data-toggle="modal" data-target="#modal-addWebsite">+</div></li>
-                            {/* Button trigger modal */}
 
-                            {/* We need to loop data and populate this format with course name in them */}
-
+                            {/* Dynamically load menu with workspaces from firebase with correct styling and routing links */}
                             {this.state.courses.map((courseTitle, arrayIndex) => {
                                 return (
                                     <li onClick={addWidget.bind(this, courseTitle)}><NavLink exact to={"/dashboard/course/" + courseTitle} className="menu-item mih" activeClassName="activeMenuItem" >{courseTitle}</NavLink></li>
                                 )
                             })}
 
-                            {/* Lower portion of side menu */}
+                            {/* Display lower portion of side menu */}
                             <br></br>
                             <br></br>
                             <br></br>

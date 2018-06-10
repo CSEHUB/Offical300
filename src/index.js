@@ -4,11 +4,9 @@ import firebase from 'firebase';
 import './index.css';
 import Login from './Login';
 import {Homepage} from './Homepage'
-import {Header, Widget1} from './Header';
 import {
     BrowserRouter as Router,
     Route,
-    Link,
     Redirect
 } from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker';
@@ -41,7 +39,7 @@ const initApp = function() {
                             </div>
                         </Router>, document.getElementById('bottom')
                     );
-                                    
+
                     {/* 4.) Load course on URL refresh/direct link*/
                     }
                     ReactDOM.render(
@@ -75,22 +73,6 @@ const initApp = function() {
                     </Router>, document.getElementById('signin')
                 );
 
-
-                {/* PROB CAN COMBINE 3 and 4 below if we come up with a smart string instead of dashboard (like app or my) to put after root url*/
-                }
-
-
-                {/* 4.) Load course on URL refresh/direct link*/
-                }
-                /*ReactDOM.render(
-                    <Router>
-                        <div>
-                            <Route exact path='/dashboard' component={Login} />
-
-                        </div>
-                    </Router>, document.getElementById('signin')
-                );*/
-
             }
         }, function (error) {
             console.log(error);
@@ -100,7 +82,5 @@ const initApp = function() {
 window.addEventListener('load', function() {
     initApp();
 });
-{/* 1.) Initially Load homepage*/}
-
 
 registerServiceWorker();

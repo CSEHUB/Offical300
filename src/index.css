@@ -887,9 +887,9 @@ h5 {
     }
 
     .menu-side {
-        height: 400px;
+        height: 625px;
         overflow-y: initial;
-        padding: 15px 55px 40px 34px;
+        padding: 15px 40px 40px 27px;
     }
 
     .widgetLogo {
@@ -931,12 +931,21 @@ h5 {
         width:60%;
     }
 
+    .widgetLogo.pdfLogo {
+        width: 21%;
+        padding-top: 72px;
+    }
+
 }
 
 
 
 /* -------- Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
+
+    .widgetLogo {
+        padding-top: 80px;
+    }
 
     .jumbotron.hp-background.geisel {
         padding: 2.5rem 2rem 35.5rem 2rem;
