@@ -73,7 +73,7 @@ class Widget extends Component {
         widgetAdd = false;
         this.getWid();
     }
-
+    
 
     //Function to remove a widget from firebase, and website.
     rmWidget(param) {
@@ -686,19 +686,8 @@ class Widget extends Component {
                         <div key={Index} className="modal fade" id={this.state.widgetID[Index]} tabIndex="-1" role="dialog"
                              aria-labelledby={this.state.widgetID[Index]}  aria-hidden="true">
 
-                                        <If condition={this.state.website[Index] == 'GradeScope'}>
-                                            <Then>
-                                                <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
-                                                    <div className="modal-content widget-modal-h">
-                                                        <div className="modal-body widget-modal-h">
-                                                            <iframe className="modal-full" src={this.state.urls[Index]}
-                                                                    frameBorder="0" allow="autoplay; encrypted-media"></iframe>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Then>
-
-                                            <ElseIf condition={this.state.website[Index] == 'Celeste'}>
+                            <If>
+                                            <Then condition={this.state.website[Index] == 'Celeste'}>
                                                 <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
                                                     <div className="modal-content widget-modal-h">
                                                         <div className="modal-body widget-modal-h">
@@ -708,7 +697,7 @@ class Widget extends Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                             </ElseIf>
+                                            </Then>
 
                                             <ElseIf condition={this.state.website[Index] == 'Visual'}>
                                                 <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
