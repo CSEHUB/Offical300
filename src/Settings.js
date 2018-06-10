@@ -1,9 +1,6 @@
+//----------------MVC - EXAMPLE------------
 import './App.css'
-import logo from './res/images/Logo.png'
-import Widget from './Widget.js';
-import {Header, Widget1} from './Header';
 import React, {Component} from 'react';
-import ReactDOM from "react-dom";
 import firebase from 'firebase';
 import 'firebase/database';
 import {
@@ -14,12 +11,8 @@ import {
 } from 'react-router-dom'
 
 import {Dashboard} from "./Dashboard";
-import {last_position} from "./SideMenu";
-
 
 export class Settings extends Component {
-
-
     constructor(props) {
         super(props);
         this.state ={
@@ -41,7 +34,6 @@ export class Settings extends Component {
 
                 //remove workspace from main database workspaces
                 var path = `workspaces/`;
-                //console.log(path);
                 const ref = firebase.database().ref(path);
                 //console.log("Removing overall workspace: " + ref.child(workspaceID));
                 ref.child(workspaceID).remove();
@@ -49,12 +41,7 @@ export class Settings extends Component {
                 //remove from workspace from user
                 var path2 = '/users/' + user.uid + '/workspace/';
                 const ref2 = firebase.database().ref(path2);
-                //console.log("Removing user workspace: " + ref.child(path2 +  userWorkspaceID));
                 ref2.child(userWorkspaceID).remove();
-
-                console.log(param);
-                //Re render widgets on deletion  of widget.
-                //window.location.reload(); //Will change later.
             }
         });
     }
@@ -123,9 +110,6 @@ export class Settings extends Component {
                 var getData = firebase.database().ref('/users/' + userId + '/workspace');
                 var temp = new Array();
                 getData.on("child_removed", (snapshot) => {
-                    console.log("snapshot:");
-                    console.log(snapshot.val());
-                    console.log(snapshot.key);
                     var deletedCourse = snapshot.key;
                     var deletedKey = snapshot.val();
                     var courseIndex = this.state.courses.indexOf(deletedCourse);
@@ -160,30 +144,30 @@ export class Settings extends Component {
                                 <div className="settings-inner">
                                     <div><h3><b>Settings</b></h3></div>
                                     <div className="deleteWorkspaceWrapper"><h4>Delete Workspaces:</h4>
-
-
                                     <ul className="removeWorkspaceWrapper">
 
+
+                                        {/* MODEL - Dynamically load workspaces from firebase.  */}
+                                        {/* VIEW - li tags  with option on hover to delete course*/}
+                                        {/* CONTROLLER - delete from database on click, but before load modal for "are you sure"*/}
                                     {this.state.courses.map((courseTitle, arrayIndex) => {
                                         return (
+
                                             <li className="removeWorkspaceItem"><div className="removeWorkspaceName">{courseTitle}</div><div className="minusWorkspace"><i data-toggle="modal" data-target={'#' + this.state.courseKeys[arrayIndex]} className="fas fa-minus-circle"></i></div></li>
                                         )
                                     })}
-
                                     </ul>
-
                                     </div>
-
-
 
                                 </div>
                             </div>
                         </div>
                     </div>
 
-
-
-
+                {/* ----------- LOADING MODALS (initially hidden)-------*/}
+                {/* MODEL - Dynamically modal load workspaces from firebase.  */}
+                {/* VIEW - modal pops up in center of screen to verify delete course*/}
+                {/* CONTROLLER - delete from database on confirm click*/}
                     {this.state.courses.map((courseTitleModal, arrayIndex) => {
                         return (
 

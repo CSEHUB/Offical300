@@ -1,3 +1,4 @@
+//--------------Layering example ------------------
 import './App.css'
 import React, {Component} from 'react';
 import 'firebase/database';
@@ -7,6 +8,8 @@ import {
 import {Dashboard,makeWorkspace} from "./Dashboard";
 
 
+
+//Layering - This file is called/rendered from Dashboard.js when URL routing = './help'
 export class Help extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +24,7 @@ export class Help extends Component {
                                 <div className="settings-inner">
                                     <div><h3>Help/Tutorial</h3></div>
                                     <br></br>
-                                    <iframe className="w100" height="315" src="https://www.youtube.com/embed/WhrsY3CfpBI"
+                                    <iframe className="w100" height="425" src="https://www.youtube.com/embed/WhrsY3CfpBI"
                                             frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
                                 </div>
                             </div>
