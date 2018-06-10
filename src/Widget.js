@@ -74,10 +74,6 @@ class Widget extends Component {
         this.getWid();
     }
 
-    //Open url in new tab if same origin issue.
-    windowOpen(url) {
-        window.open(url,'_self'); //Make it _blank for new tab
-    }
 
     //Function to remove a widget from firebase, and website.
     rmWidget(param) {
@@ -544,7 +540,7 @@ class Widget extends Component {
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
                                             <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
-                                        <div onClick={this.windowOpen.bind(this, this.state.urls[arrayIndex])} id="e" draggable="true" className="w-container" data-toggle="modal"
+                                        <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo" src={gradescopeLogo}/>
                                         </div>
@@ -602,7 +598,7 @@ class Widget extends Component {
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
                                             <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
-                                        <div onClick={this.windowOpen.bind(this, this.state.urls[arrayIndex])} id="e" draggable="true" className="w-container" data-toggle="modal"
+                                        <div id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo defaultWidget" src={defaultWidget}/>
                                             <br/>
