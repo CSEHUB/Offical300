@@ -54,6 +54,7 @@ class Widget extends Component {
         super();
         courseName = name;
 
+
         this.state = {
             urls: new Array(),
             website: new Array(),
@@ -71,6 +72,11 @@ class Widget extends Component {
         // for adding or getting widget. In this case it will get widgets.
         widgetAdd = false;
         this.getWid();
+    }
+
+    //Open url in new tab if same origin issue.
+    windowOpen(url) {
+        window.open(url,'_self'); //Make it _blank for new tab
     }
 
     //Function to remove a widget from firebase, and website.
@@ -538,12 +544,11 @@ class Widget extends Component {
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
                                             <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
-                                        <div id="e" draggable="true" className="w-container" data-toggle="modal"
+                                        <div onClick={this.windowOpen.bind(this, this.state.urls[arrayIndex])} id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo" src={gradescopeLogo}/>
                                         </div>
                                     </div>
-
                                 </ElseIf>
 
 
@@ -597,7 +602,7 @@ class Widget extends Component {
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
                                             <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
-                                        <div id="e" draggable="true" className="w-container" data-toggle="modal"
+                                        <div onClick={this.windowOpen.bind(this, this.state.urls[arrayIndex])} id="e" draggable="true" className="w-container" data-toggle="modal"
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo defaultWidget" src={defaultWidget}/>
                                             <br/>
@@ -691,7 +696,8 @@ class Widget extends Component {
                                                     <div className="modal-content widget-modal-h">
                                                         <div className="modal-body widget-modal-h">
                                                             <iframe className="modal-full" src={this.state.urls[Index]}
-                                                                    frameBorder="0" allow="autoplay; encrypted-media"></iframe>                                                        </div>
+                                                                    frameBorder="0" allow="autoplay; encrypted-media"></iframe>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </Then>
