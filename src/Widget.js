@@ -76,7 +76,7 @@ class Widget extends Component {
 
     //Open url in new tab if same origin issue.
     windowOpen(url) {
-        window.open(url,'_self'); //Make it _blank for new tab
+        window.open(url,'_blank'); //Make it _blank for new tab
     }
 
     //Function to remove a widget from firebase, and website.
@@ -544,8 +544,7 @@ class Widget extends Component {
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
                                             <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
-                                        <div onClick={this.windowOpen.bind(this, this.state.urls[arrayIndex])} id="e" draggable="true" className="w-container" data-toggle="modal"
-                                             data-target={'#' + this.state.widgetID[arrayIndex]}>
+                                        <div onClick={this.windowOpen.bind(this, this.state.urls[arrayIndex])} id="e" draggable="true" className="w-container">
                                             <img className="widgetLogo" src={gradescopeLogo}/>
                                         </div>
                                     </div>
@@ -602,8 +601,7 @@ class Widget extends Component {
                                             <div onClick={this.rmWidget.bind(this, arrayIndex)} className="w-top-l"><i className="far fa-times-circle"></i></div>
                                             <div className="w-top-r"><a href={this.state.urls[arrayIndex]} target="_blank"><i className="fas fa-window-restore"></i></a></div>
                                         </div>
-                                        <div onClick={this.windowOpen.bind(this, this.state.urls[arrayIndex])} id="e" draggable="true" className="w-container" data-toggle="modal"
-                                             data-target={'#' + this.state.widgetID[arrayIndex]}>
+                                        <div onClick={this.windowOpen.bind(this, this.state.urls[arrayIndex])} id="e" draggable="true" className="w-container" >
                                             <img className="widgetLogo defaultWidget" src={defaultWidget}/>
                                             <br/>
                                             {/*<center className="urlWrap">{this.state.urls[arrayIndex]}</center>*/}
@@ -690,19 +688,8 @@ class Widget extends Component {
                         <div key={Index} className="modal fade" id={this.state.widgetID[Index]} tabIndex="-1" role="dialog"
                              aria-labelledby={this.state.widgetID[Index]}  aria-hidden="true">
 
-                                        <If condition={this.state.website[Index] == 'GradeScope'}>
-                                            <Then>
-                                                <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
-                                                    <div className="modal-content widget-modal-h">
-                                                        <div className="modal-body widget-modal-h">
-                                                            <iframe className="modal-full" src={this.state.urls[Index]}
-                                                                    frameBorder="0" allow="autoplay; encrypted-media"></iframe>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Then>
-
-                                            <ElseIf condition={this.state.website[Index] == 'Celeste'}>
+                            <If>
+                                            <Then condition={this.state.website[Index] == 'Celeste'}>
                                                 <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
                                                     <div className="modal-content widget-modal-h">
                                                         <div className="modal-body widget-modal-h">
@@ -712,7 +699,7 @@ class Widget extends Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                             </ElseIf>
+                                            </Then>
 
                                             <ElseIf condition={this.state.website[Index] == 'Visual'}>
                                                 <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
