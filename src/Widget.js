@@ -665,72 +665,80 @@ class Widget extends Component {
                         <div key={Index} className="modal fade" id={this.state.widgetID[Index]} tabIndex="-1" role="dialog"
                              aria-labelledby={this.state.widgetID[Index]}  aria-hidden="true">
 
-                            <If>
-                                            <Then condition={this.state.website[Index] == 'Celeste'}>
-                                                <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
-                                                    <div className="modal-content widget-modal-h">
-                                                        <div className="modal-body widget-modal-h">
-                                                <iframe sandbox="allow-scripts" scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/235259/Celeste/index.html" style={{border: '0px none', marginLeft: '0px', height: 565, marginTop: 0, width: 570}}>
-                                                    <p>Your browser does not support iframes.</p>
-                                                        </iframe>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Then>
+                            <If condition={this.state.website[Index] == 'GradeScope'}>
+                                <Then>
+                                    <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
+                                        <div className="modal-content widget-modal-h">
+                                            <div className="modal-body widget-modal-h">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Then>
 
-                                            <ElseIf condition={this.state.website[Index] == 'Visual'}>
-                                                <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
-                                                    <div className="modal-content widget-modal-h">
-                                                        <div className="modal-body widget-modal-h">
-                                                            <iframe className="modal-full" src={this.state.gsURL[Index]}
-                                                                    frameBorder="0" allow="autoplay; encrypted-media"></iframe>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </ElseIf>
+                                <ElseIf condition={this.state.website[Index] == 'Celeste'}>
+                                    <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
+                                        <div className="modal-content widget-modal-h">
+                                            <div className="modal-body widget-modal-h">
+                                                <iframe sandbox="allow-scripts" scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/235259/Celeste/index.html" style={{border: '0px none', marginLeft: '0px', height: 565, marginTop: 0, width: 570}}/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ElseIf>
 
-                                            <ElseIf condition={this.state.website[Index] == 'Pico-Racer'}>
-                                                <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
-                                                    <div className="modal-content widget-modal-h">
-                                                        <div className="modal-body widget-modal-h">
+                                <ElseIf condition={this.state.website[Index] == 'Visual'}>
+                                    <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
+                                        <div className="modal-content widget-modal-h">
+                                            <div className="modal-body widget-modal-h">
+                                                <iframe className="modal-full" src={this.state.gsURL[Index]}
+                                                        frameBorder="0" allow="autoplay; encrypted-media"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ElseIf>
+
+                                <ElseIf condition={this.state.website[Index] == 'Pico-Racer'}>
+                                    <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
+                                        <div className="modal-content widget-modal-h">
+                                            <div className="modal-body widget-modal-h">
                                                 <iframe sandbox="allow-scripts" scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/394002/picoracer/index.html" style={{border: '0px none', marginLeft: 0, height: 650, marginTop: 0, width: 575}}/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </ElseIf>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ElseIf>
 
-                                            <ElseIf condition={this.state.website[Index] == 'Bee'}>
-                                                <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
-                                                    <div className="modal-content widget-modal-h">
-                                                        <div className="modal-body widget-modal-h">
-                                                            <iframe sandbox="allow-scripts" scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/524861/index.html" allowFullScreen style={{border: '0px none', marginLeft: 0, height: 650, marginTop: 0, width: 575}}/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                            </ElseIf>
+                                <ElseIf condition={this.state.website[Index] == 'Bee'}>
+                                    <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
+                                        <div className="modal-content widget-modal-h">
+                                            <div className="modal-body widget-modal-h">
+                                                <iframe sandbox="allow-scripts" scrolling="no" src="http://v6p9d9t4.ssl.hwcdn.net/html/524861/index.html" allowFullScreen style={{border: '0px none', marginLeft: 0, height: 650, marginTop: 0, width: 575}}/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ElseIf>
 
-                                            <ElseIf condition={this.state.website[Index] == 'pacman'}>
-                                                <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
-                                                    <div className="modal-content widget-modal-h">
-                                                        <div className="modal-body widget-modal-h">
-                                                            <iframe className="modal-full pacman-iframe" frameBorder="0" allow="encrypted-media" src="https://macek.github.io/google_pacman/"></iframe>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </ElseIf>
+                                <ElseIf condition={this.state.website[Index] == 'pacman'}>
+                                    <div className="modal-dialog widget-modalCeleste modal-dialog-centered" role="document">
+                                        <div className="modal-content widget-modal-h">
+                                            <div className="modal-body widget-modal-h">
+                                                <iframe className="modal-full pacman-iframe" frameBorder="0" allow="encrypted-media" src="https://macek.github.io/google_pacman/"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ElseIf>
 
-
-                                            <Else>
-                                                <div className="modal-dialog widget-modal modal-dialog-centered">
-                                                    <div className="modal-content widget-modal-h">
-                                                        <div className="modal-body widget-modal-h">
+                                <Else>
+                                    <div className="modal-dialog widget-modal modal-dialog-centered" role="document">
+                                        <div className="modal-content widget-modal-h">
+                                            <div className="modal-body widget-modal-h">
                                                 <iframe className="modal-full" src={this.state.urls[Index]}
                                                         frameBorder="0" allow="autoplay; encrypted-media"></iframe>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Else>
-                                        </If>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Else>
+
+
+                            </If>
                         </div>
                     )
                 })}
