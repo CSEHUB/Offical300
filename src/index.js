@@ -41,12 +41,7 @@ const initApp = function() {
                             </div>
                         </Router>, document.getElementById('bottom')
                     );
-
-
-                    {/* PROB CAN COMBINE 3 and 4 below if we come up with a smart string instead of dashboard (like app or my) to put after root url*/
-                    }
-
-
+                                    
                     {/* 4.) Load course on URL refresh/direct link*/
                     }
                     ReactDOM.render(

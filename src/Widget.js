@@ -602,9 +602,6 @@ class Widget extends Component {
                                              data-target={'#' + this.state.widgetID[arrayIndex]}>
                                             <img className="widgetLogo defaultWidget" src={defaultWidget}/>
                                             <br/>
-                                            {/*<center className="urlWrap">{this.state.urls[arrayIndex]}</center>*/}
-                                            <center>{this.state.gsGrade[arrayIndex]}</center>
-                                            <center>{this.state.gsRank[arrayIndex]}</center>
                                         </div>
                                     </div>
 

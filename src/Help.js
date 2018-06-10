@@ -30,8 +30,7 @@ export class Help extends Component {
                             <div className="settings-outer">
                                 <div className="settings-inner">
                                     <div><h3>Help/Tutorial</h3></div>
-                                    <p>Place tutorial video below:</p>
-                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                    <iframe className="w100" height="315" src="https://www.youtube.com/embed/WhrsY3CfpBI"
                                             frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
                                 </div>
                             </div>
