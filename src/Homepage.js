@@ -1,7 +1,6 @@
 import './App.css'
 import bkImg from './res/images/homepageGeisel.jpg'
 import dashImg from './res/images/dashboard-sample.png'
-import teamImg from './res/images/teamPhoto.jpg'
 import techLogosImg from './res/images/allLogos.png'
 import React from 'react';
 import lucasProfileImg from './res/images/Members/lucas.jpg'
@@ -9,7 +8,6 @@ import chrisProfileImg from './res/images/Members/chris.jpg'
 import mahibProfileImg from './res/images/Members/mahib.jpg'
 import kevinProfileImg from './res/images/Members/kevin.jpg'
 import shaneProfileImg from './res/images/Members/shane.jpg'
-import jasonProfileImg from './res/images/Members/jason.jpg'
 import ericProfileImg from './res/images/Members/eric.jpg'
 import andrewProfileImg from './res/images/Members/andrew.png'
 import yeProfileImg from './res/images/Members/ye.png'
@@ -22,10 +20,6 @@ import {
 {/* Used for image styling in CSS */}
 var backgroundImg = {
     backgroundImage: 'url(' + bkImg + ')'
-};
-
-var teamBackgroundImg = {
-    backgroundImage: 'url(' + teamImg + ')'
 };
 
 export const Homepage = () => {
@@ -70,12 +64,6 @@ export const Homepage = () => {
                         </div>
                         </div>
                     </div>
-
-                <div style={teamBackgroundImg} className="jumbotron hp-background mt65">
-                    <div className="container text-center">
-                        <h3 className="display-3">Meet team HUB</h3>
-                    </div>
-                </div>
 
                 <div className="container">
 
@@ -125,18 +113,13 @@ export const Homepage = () => {
                             <h5>Senior System Analyst</h5>
                         </div>
                         <div className="col-md-3">
-                            <img className="profilePhoto" alt="Jason Kuo" src={jasonProfileImg}/>
-                            <h4>Jason Kuo</h4>
-                            <h5>Algorithm Specialist</h5>
-                        </div>
-                    </div>
-
-                    <div className="row text-center pt45">
-                        <div className="col-md-3">
                             <img className="profilePhoto" alt="Mo Rahman" src={moProfileImg}/>
                             <h4>Mo Rahman</h4>
                             <h5>Business Analyst</h5>
                         </div>
+                    </div>
+
+                    <div className="row text-center pt45">
                         <div className="col-md-3">
                             <img className="profilePhoto" alt="Eric Ping" src={ericProfileImg}/>
                             <h4>Eric Ping</h4>
